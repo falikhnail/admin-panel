@@ -1,0 +1,123 @@
+{
+  "_app-41e7cd70.js": {
+    "file": "assets/app-41e7cd70.js"
+  },
+  "_bootstrap.bundle.min-aa36eb42.js": {
+    "css": [
+      "assets/bootstrap.bundle-e8367bfc.css"
+    ],
+    "file": "assets/bootstrap.bundle.min-aa36eb42.js"
+  },
+  "bootstrap.bundle.css": {
+    "file": "assets/bootstrap.bundle-e8367bfc.css",
+    "src": "bootstrap.bundle.css"
+  },
+  "resources/js/auth.css": {
+    "file": "assets/auth-d35feec1.css",
+    "src": "resources/js/auth.css"
+  },
+  "resources/js/auth.js": {
+    "css": [
+      "assets/auth-d35feec1.css"
+    ],
+    "file": "assets/auth-547801d6.js",
+    "imports": [
+      "_app-41e7cd70.js",
+      "_bootstrap.bundle.min-aa36eb42.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/auth.js"
+  },
+  "resources/js/backend.css": {
+    "file": "assets/backend-85ad5dc3.css",
+    "src": "resources/js/backend.css"
+  },
+  "resources/js/backend.js": {
+    "assets": [
+      "assets/bootstrap-icons-966620f9.woff2",
+      "assets/bootstrap-icons-c6569d46.woff",
+      "assets/boxicons-c23887bb.eot",
+      "assets/boxicons-4b87cbc7.woff2",
+      "assets/boxicons-d5d511cf.woff",
+      "assets/boxicons-47509a2d.ttf",
+      "assets/boxicons-3fe502d8.svg",
+      "assets/remixicon-64bb3a0f.eot",
+      "assets/remixicon-e61f0d10.woff2",
+      "assets/remixicon-c2dacfbc.woff",
+      "assets/remixicon-0ac8bc3c.ttf",
+      "assets/remixicon-a10268fe.svg"
+    ],
+    "css": [
+      "assets/backend-85ad5dc3.css"
+    ],
+    "file": "assets/backend-57b6c4e8.js",
+    "imports": [
+      "_bootstrap.bundle.min-aa36eb42.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/backend.js"
+  },
+  "resources/js/frontend.css": {
+    "file": "assets/frontend-7196ba25.css",
+    "src": "resources/js/frontend.css"
+  },
+  "resources/js/frontend.js": {
+    "css": [
+      "assets/frontend-7196ba25.css"
+    ],
+    "file": "assets/frontend-78a02fbb.js",
+    "imports": [
+      "_app-41e7cd70.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/frontend.js"
+  },
+  "resources/lib/bootstrap-icons/fonts/bootstrap-icons.woff": {
+    "file": "assets/bootstrap-icons-c6569d46.woff",
+    "src": "resources/lib/bootstrap-icons/fonts/bootstrap-icons.woff"
+  },
+  "resources/lib/bootstrap-icons/fonts/bootstrap-icons.woff2": {
+    "file": "assets/bootstrap-icons-966620f9.woff2",
+    "src": "resources/lib/bootstrap-icons/fonts/bootstrap-icons.woff2"
+  },
+  "resources/lib/boxicons/fonts/boxicons.eot": {
+    "file": "assets/boxicons-c23887bb.eot",
+    "src": "resources/lib/boxicons/fonts/boxicons.eot"
+  },
+  "resources/lib/boxicons/fonts/boxicons.svg": {
+    "file": "assets/boxicons-3fe502d8.svg",
+    "src": "resources/lib/boxicons/fonts/boxicons.svg"
+  },
+  "resources/lib/boxicons/fonts/boxicons.ttf": {
+    "file": "assets/boxicons-47509a2d.ttf",
+    "src": "resources/lib/boxicons/fonts/boxicons.ttf"
+  },
+  "resources/lib/boxicons/fonts/boxicons.woff": {
+    "file": "assets/boxicons-d5d511cf.woff",
+    "src": "resources/lib/boxicons/fonts/boxicons.woff"
+  },
+  "resources/lib/boxicons/fonts/boxicons.woff2": {
+    "file": "assets/boxicons-4b87cbc7.woff2",
+    "src": "resources/lib/boxicons/fonts/boxicons.woff2"
+  },
+  "resources/lib/remixicon/remixicon.eot": {
+    "file": "assets/remixicon-64bb3a0f.eot",
+    "src": "resources/lib/remixicon/remixicon.eot"
+  },
+  "resources/lib/remixicon/remixicon.svg": {
+    "file": "assets/remixicon-a10268fe.svg",
+    "src": "resources/lib/remixicon/remixicon.svg"
+  },
+  "resources/lib/remixicon/remixicon.ttf": {
+    "file": "assets/remixicon-0ac8bc3c.ttf",
+    "src": "resources/lib/remixicon/remixicon.ttf"
+  },
+  "resources/lib/remixicon/remixicon.woff": {
+    "file": "assets/remixicon-c2dacfbc.woff",
+    "src": "resources/lib/remixicon/remixicon.woff"
+  },
+  "resources/lib/remixicon/remixicon.woff2": {
+    "file": "assets/remixicon-e61f0d10.woff2",
+    "src": "resources/lib/remixicon/remixicon.woff2"
+  }
+}

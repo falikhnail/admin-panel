@@ -1,0 +1,26 @@
+@import "backend_variables";
+
+@import "resources/vendors/coreui/src/scss/style.scss";
+
+@import "backend_custom";
+
+.bg-gradient-sidebar {
+    background-image: linear-gradient(to bottom right, rgba(92, 77, 66, 0.8), rgb(111, 111, 101));
+}
+
+.sidebar {
+
+    .sidebar-brand {
+        min-height: 150px !important;
+
+        .sidebar-brand-full {
+            height: 60px;
+            width: 200px;
+        }
+    }
+
+    .nav-link {
+        font-weight: bold !important;
+        color: #fff !important;
+    }
+}
