@@ -92,7 +92,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Income Chart</h5>
-                        <div class="row">
+                        <div class="row" style="max-width: 100% !important;">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div id="income-chart"></div>
                             </div>
@@ -107,95 +107,107 @@
 @push('after-scripts')
     <script>
         $(document).ready(function() {
-            var options = {
-                series: [{
-                    name: 'Income',
-                    data: [{{ formatOnlyNumber($lastBalance2Month) }},
-                        {{ formatOnlyNumber($lastBalance1Month) }},
-                        {{ formatOnlyNumber($lastBalance) }}, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                    ]
-                }],
-                chart: {
-                    height: 350,
-                    type: 'bar',
-                },
-                plotOptions: {
-                    bar: {
-                        //borderRadius: 10,
-                        dataLabels: {
-                            position: 'top', // top, center, bottom
-                        },
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    formatter: function(val) {
-                        if (val === 0) return '';
-                        return '$' + val;
+            setTimeout(() => {
+                var options = {
+                    series: [{
+                        name: 'Income',
+                        data: [{{ formatOnlyNumber($lastBalance2Month) }},
+                            {{ formatOnlyNumber($lastBalance1Month) }},
+                            {{ formatOnlyNumber($lastBalance) }}, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                        ]
+                    }],
+                    chart: {
+                        height: 350,
+                        width: '100%',
+                        type: 'bar',
                     },
-                    offsetY: -20,
-                    style: {
-                        fontSize: '12px',
-                        colors: ["#304758"]
-                    }
-                },
-
-                xaxis: {
-                    categories: ["{{ $last2MonthName }}", '{{ $last1MonthName }}', "{{ $lastMonthName }}",
-                        '-', '-', '-', '-', '-', '-', '-', '-', '-',
-                    ],
-                    position: 'top',
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [0, 100],
-                                opacityFrom: 0.4,
-                                opacityTo: 0.5,
-                            }
+                    plotOptions: {
+                        bar: {
+                            //borderRadius: 10,
+                            dataLabels: {
+                                position: 'top', // top, center, bottom
+                            },
                         }
                     },
-                    tooltip: {
+                    dataLabels: {
                         enabled: true,
-                    }
-                },
-                yaxis: {
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false,
-                    },
-                    labels: {
-                        show: false,
                         formatter: function(val) {
                             if (val === 0) return '';
                             return '$' + val;
+                        },
+                        offsetY: -20,
+                        style: {
+                            fontSize: '12px',
+                            colors: ["#304758"]
+                        }
+                    },
+
+                    xaxis: {
+                        categories: ["{{ $last2MonthName }}", '{{ $last1MonthName }}',
+                            "{{ $lastMonthName }}",
+                            '-', '-', '-', '-', '-', '-', '-', '-', '-',
+                        ],
+                        position: 'top',
+                        axisBorder: {
+                            show: false
+                        },
+                        axisTicks: {
+                            show: false
+                        },
+                        crosshairs: {
+                            fill: {
+                                type: 'gradient',
+                                gradient: {
+                                    colorFrom: '#D8E3F0',
+                                    colorTo: '#BED1E6',
+                                    stops: [0, 100],
+                                    opacityFrom: 0.4,
+                                    opacityTo: 0.5,
+                                }
+                            }
+                        },
+                        tooltip: {
+                            enabled: true,
+                        }
+                    },
+                    yaxis: {
+
+                        axisBorder: {
+                            show: false
+                        },
+                        axisTicks: {
+                            show: false,
+                        },
+                        labels: {
+                            show: false,
+                            formatter: function(val) {
+                                if (val === 0) return '';
+                                return '$' + val;
+                            }
+                        }
+
+                    },
+                    title: {
+                        text: 'Monthly Income Chart',
+                        floating: true,
+                        offsetY: 330,
+                        align: 'center',
+                        style: {
+                            color: '#444'
                         }
                     }
+                };
 
-                },
-                title: {
-                    text: 'Monthly Income Chart',
-                    floating: true,
-                    offsetY: 330,
-                    align: 'center',
-                    style: {
-                        color: '#444'
-                    }
-                }
-            };
+                var chart = new ApexCharts(document.querySelector("#income-chart"), options);
+                chart.render();
+            }, 300);
 
-            var chart = new ApexCharts(document.querySelector("#income-chart"), options);
-            chart.render();
         });
     </script>
+@endpush
+
+@push('after-styles')
+    .apexcharts-canvas {
+    width: 100% !important;
+    }
 @endpush

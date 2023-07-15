@@ -48,8 +48,12 @@
                                             </div>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="platform" name="platform"
-                                                placeholder="Type Platform" required >
+                                            <select class="form-control" id="platform" name="platform">
+                                                <option disabled selected value="">Select Platform</option>
+                                                @foreach ($platforms as $p)
+                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                                @endforeach
+                                            </select>
                                             <label for="platform">Platform</label>
                                             <div class="invalid-feedback">
                                                 Please Fill Platform
@@ -72,7 +76,8 @@
                                             </div>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control number" id="upc" placeholder="Type UPC" name="upc" required>
+                                            <input type="text" class="form-control number" id="upc"
+                                                placeholder="Type UPC" name="upc" required>
                                             <label for="upc">UPC</label>
                                             <div class="invalid-feedback">
                                                 Please Fill UPC
@@ -81,8 +86,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control datepicker" id="reporting_period" name="reporting_period"
-                                                placeholder="Masukkan Reporting Period" required>
+                                            <input type="text" class="form-control datepicker" id="reporting_period"
+                                                name="reporting_period" placeholder="Masukkan Reporting Period" required>
                                             {{-- <label for="reporting_period">Reporting Period</label> --}}
                                             <div class="invalid-feedback">
                                                 Please Fill Reporting Period

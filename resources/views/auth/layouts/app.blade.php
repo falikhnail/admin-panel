@@ -21,7 +21,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%),
-                url("{{ asset('img/bisnis.jpg') }}");
+                url("{{ asset('img/bg.jpg') }}");
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: scroll;

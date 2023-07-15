@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         $this->call(UserSeeder::class);
+        $this->call(PlatformsSeeder::class);
         $this->call(ReportGeneralSeeder::class);
         $this->call(WithdrawsSeeder::class);
         $this->call(UserBalanceSeeder::class);

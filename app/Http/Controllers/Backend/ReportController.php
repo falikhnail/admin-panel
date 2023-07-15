@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Exports\GeneralReportExport;
 use App\Http\Controllers\Controller;
 use App\Imports\GeneralReportImport;
+use App\Models\PlatformsModel;
 use App\Models\ReportGeneralModel;
 use App\Models\SessionKeyModel;
 use App\Models\UserModel;
@@ -18,14 +19,20 @@ use Yajra\DataTables\DataTables;
 class ReportController extends Controller {
 
     public function general() {
-        return view('backend.report_general');
+        $platforms = PlatformsModel::all();
+
+        return view('backend.report_general', compact(
+            'platforms'
+        ));
     }
 
     public function addGeneral() {
         $user = UserModel::allUser();
+        $platforms = PlatformsModel::all();
 
         return view('backend.add_report_general', compact(
             'user',
+            'platforms'
         ));
     }
 
@@ -33,19 +40,25 @@ class ReportController extends Controller {
         $userSession = session()->get(SessionKeyModel::USER_LOGIN);
 
         // * filter
-        $platform = $request->get('platform');
+        $platformId = $request->get('platform');
         $accountingPeriod = $request->get('accountringPeriod');
 
-        $generalReport = ReportGeneralModel::query();
+        $generalReport = ReportGeneralModel::query()
+            ->leftJoin('platforms', 'report_general.platform_id', '=', 'platforms.id');
         if (!empty($accountingPeriod)) {
-            $generalReport->where('reporting_period', $accountingPeriod);
+            $generalReport->where('report_general.reporting_period', $accountingPeriod);
         }
-        if (!empty($platform)) {
-            $generalReport->where('platform', $platform);
+        if ((int)$platformId > 0) {
+            $generalReport->where('report_general.platform_id', $platformId);
         }
 
+        $generalReport = $generalReport
+            ->select('report_general.*')
+            ->selectRaw("platforms.name as platform");
+
         if ($userSession->tipe_user === 'user') {
-            $generalData = $generalReport->byUserId($userSession->id)->get();
+            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin'))";
+            $generalData = $generalReport->whereRaw($sqlUser)->get();
         } else {
             $generalData = $generalReport->get();
         }
@@ -93,7 +106,7 @@ class ReportController extends Controller {
             ReportGeneralModel::query()->insert([
                 'users_id' => $request->post('user_id'),
                 'reporting_period' => $request->post('reporting_period'),
-                'platform' => $request->post('platform'),
+                'platform_id' => $request->post('platform'),
                 'label_name' => $request->post('label_name'),
                 'artist' => $request->post('artist'),
                 'album' => $request->post('album'),

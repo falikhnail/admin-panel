@@ -26,16 +26,19 @@
                             <div class="form-group">
                                 <label for="#platform" class="form-label">Platform</label>
                                 <select class="form-control" id="platform">
-                                    <option value="">Semua Platform</option>
+                                    <option selected disabled value="">Select Platform</option>
+                                    <option value="0">ALL</option>
+                                    @foreach ($platforms as $p)
+                                        <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="#accounting-period" class="form-label">Accounting Period</label>
-                                <select class="form-control" id="accounting-period">
-                                    <option value="">Semua Tanggal</option>
-                                </select>
+                                <label for="#accountringPeriod" class="form-label">Accounting Period</label>
+                                <input type="text" class="form-control datepicker" id="accountringPeriod"
+                                    name="accounting-period" placeholder="Input Accounting Period">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -116,6 +119,8 @@
                 data: function(d) {
                     d.platform = $('#platform').val();
                     d.accountringPeriod = $('#accountringPeriod').val();
+
+                    console.log('params', d);
                 }
             },
             columns: [{
@@ -172,7 +177,7 @@
             table.draw();
         });
 
-        $('#accounting-period').change(function() {
+        $('#accountringPeriod').change(function() {
             table.draw();
         });
 

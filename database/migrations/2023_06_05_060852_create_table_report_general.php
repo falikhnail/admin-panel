@@ -13,10 +13,11 @@ return new class extends Migration {
     public function up() {
         Schema::create('report_general', function (Blueprint $table) {
             $table->id();
+
             $table->bigInteger('users_id')->unsigned()->index()->nullable();
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('platform_id')->unsigned()->index()->nullable();
+
             $table->date('reporting_period')->default(date('Y-m-d'));
-            $table->string('platform', 100);
             $table->string('label_name', 100);
             $table->string('artist', 100);
             $table->string('album', 100);
@@ -25,6 +26,11 @@ return new class extends Migration {
             $table->bigInteger('upc');
             $table->decimal('revenue');
             $table->timestamps();
+        });
+
+        Schema::table('report_general', function (Blueprint $table) {
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
         });
     }
 
