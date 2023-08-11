@@ -12840,8 +12840,89 @@ header.masthead .h1 {
     display: none;
 }
 
-.logo{
+.logo {
     width: 40%;
     margin: 0;
     padding: 0;
+}
+
+.short-divider {
+    height: 10px;
+    width: 30px;
+    margin: 0 auto;
+    border-top: 2px solid #e70000;
+    opacity: 1 !important;
+}
+
+.page-section-xl {
+    padding: 20rem 0;
+}
+
+.lh-15 {
+    font-weight: normal;
+    line-height: 1.5em;
+    font-size: 24px;
+}
+
+.container-profile {
+    position: relative;
+    overflow: hidden;
+}
+
+.container-profile p {
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    color: white;
+    text-align: center;
+    font-weight: 900;
+}
+
+.img-profile {
+    max-height: 500px;
+    text-align: center;
+}
+
+.fw-900{
+    font-weight: 900;
+}
+
+.fs-88{
+    font-size: 88px;
+}
+
+.mx-w50{
+    max-width: 40%;
+}
+
+.mt-150{
+    margin-top: 150px;
+}
+
+.text-justify{
+    text-align: justify;
+}
+
+.c-grey{
+    color: grey;
+}
+
+.mt-100{
+    margin-top: 100px;
+}
+
+.none{
+    color: white;
+    text-decoration: none;
+}
+
+.none:hover{
+    color: white;
+}
+
+.divider-lg{
+    width: 100%;
+    height: 1px;
+    background-color:grey;
+    margin: 3px;
 }

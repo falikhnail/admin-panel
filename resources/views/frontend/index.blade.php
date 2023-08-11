@@ -7,7 +7,7 @@
 @section('content')
     <header class="masthead">
         @include('flash::message')
-        <div class="container px-4 px-lg-5 h-100">
+        <div class="container px-4 px-lg-5 h-100" data-aos="fade-up">
             <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
                 <div class="col-lg-8 align-self-end">
                     <h1 class="text-white font-weight-bold">Mudahkan Pengelolaan Bisnis Anda Dengan Kami</h1>
@@ -21,9 +21,8 @@
             </div>
         </div>
     </header>
-
-    <section class="page-section bg-primary" id="about">
-        <div class="container px-4 px-lg-5">
+    <section class="page-section bg-primary" id="">
+        <div class="container px-4 px-lg-5" data-aos="fade-up">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-lg-8 text-center">
                     <h2 class="text-white mt-0">Kami Menyediakan Kebutuhan BisnisMu</h2>
@@ -36,7 +35,7 @@
     </section>
 
     <section class="page-section" id="services">
-        <div class="container px-4 px-lg-5">
+        <div class="container px-4 px-lg-5" data-aos="fade-up">
             <h2 class="text-center mt-0">Layanan Kami</h2>
             <hr class="divider" />
             <div class="row gx-4 gx-lg-5">
