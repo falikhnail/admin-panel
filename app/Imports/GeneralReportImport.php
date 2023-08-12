@@ -2,13 +2,16 @@
 
 namespace App\Imports;
 
+use App\Models\PlatformsModel;
 use App\Models\ReportGeneralModel;
 use App\Models\SessionKeyModel;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Collection;
+use Log;
 use Maatwebsite\Excel\Concerns\ToArray;
 use Session;
+use Throwable;
 
 class GeneralReportImport implements ToArray {
 
@@ -35,30 +38,44 @@ class GeneralReportImport implements ToArray {
      * @param array $array
      */
     public function array(array $array) {
-        foreach ($array as $key => $values) {
-            if ($key === 0) {
-                $validate = $this->validateHeaderWithRowNumber($array[0]);
-                if (!empty($validate)) {
-                    throw new Exception($validate);
-                }
-            } else {
-                $data = [
-                    'users_id' => $this->userSession->id,
-                    'reporting_period' => $values[1] ?: null,
-                    'platform' => $values[2] ?: null,
-                    'label_name' => $values[3] ?: null,
-                    'artist' => $values[4] ?: null,
-                    'album' => $values[5] ?: null,
-                    'title' => $values[6] ?: null,
-                    'isrc' => $values[7] ?: null,
-                    'upc' => $values[8] ?: null,
-                    'revenue' => $values[9] ?: null,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ];
+        try {
+            foreach ($array as $key => $values) {
+                if ($key === 0) {
+                    $validate = $this->validateHeaderWithRowNumber($array[0]);
+                    if (!empty($validate)) {
+                        throw new Exception($validate);
+                    }
+                } else {
+                    $platformId = 0;
+                    if (!empty($values[2])) {
+                        $platform = PlatformsModel::whereRaw("name = '$values[2]' or name like '%$values[2]%'")->first();
 
-                ReportGeneralModel::query()->insert($data);
+                        if (!empty($platform)) {
+                            $platformId = $platform->id;
+                        }
+                    }
+
+                    $data = [
+                        'users_id' => $this->userSession->id,
+                        'reporting_period' => $values[1] ?: null,
+                        'platform_id' => $platformId,
+                        'label_name' => $values[3] ?: null,
+                        'artist' => $values[4] ?: null,
+                        'album' => $values[5] ?: null,
+                        'title' => $values[6] ?: null,
+                        'isrc' => $values[7] ?: null,
+                        'upc' => $values[8] ?: null,
+                        'revenue' => $values[9] ?: null,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ];
+
+                    ReportGeneralModel::query()->insert($data);
+                }
             }
+        } catch (Throwable $e) {
+            Log::error('error upload general  >>>> ' . $e->getMessage());
+            abort('500', 'Make sure file to upload is similiar with template');
         }
     }
 

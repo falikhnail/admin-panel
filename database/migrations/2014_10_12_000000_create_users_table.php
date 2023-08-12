@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('tipe_user')->nullable();
+            $table->string('image_path')->nullable();
+            $table->string('image_name')->nullable();
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

@@ -30,7 +30,7 @@ return new class extends Migration {
 
         Schema::table('report_general', function (Blueprint $table) {
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
+            //$table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
         });
     }
 

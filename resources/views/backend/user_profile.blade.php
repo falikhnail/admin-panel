@@ -18,8 +18,17 @@
             <div class="col-xl-4">
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <h2>{{ $userData->nama }}</h2>
+                        <div class="position-relative">
+                            <img src="{{  asset(!empty($userData->image_path) ? $userData->image_path : 'img/user.png') }}" alt="" class="rounded-circle" width="100"
+                                height="100" id="img-profile">
+                            <a href="javascript:void(0)" class="position-absolute bottom-0 right-2"
+                                onclick="pickImg(event)">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <input type="file" accept="image/*" id="img-profile-pick" style="display: none;"
+                                onchange="onChangeImgProfile(event)">
+                        </div>
+                        <h2 class="mt-3">{{ $userData->nama }}</h2>
                         <h3>{{ $userData->email }}</h3>
                         <div class="social-links mt-2">
                             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -31,7 +40,6 @@
                 </div>
             </div>
             <div class="col-xl-8">
-
                 <div class="card">
                     <div class="card-body pt-3">
                         <ul class="nav nav-tabs nav-tabs-bordered">
@@ -47,7 +55,7 @@
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade profile-edit pt-3 show active bg-white" id="profile-edit">
                                 <form action="{{ route('backend.save_profile') }}" method="POST">
-                                    <input type="none" name="userId" value="{{ $userData->users_id }}" hidden/>
+                                    <input type="none" name="userId" value="{{ $userData->users_id }}" hidden />
                                     <div class="row mb-3">
                                         <label for="nama" class="col-md-4 col-lg-3 col-form-label">Name</label>
                                         <div class="col-md-8 col-lg-9">
@@ -70,18 +78,20 @@
                             </div>
                             <div class="tab-pane profile-edit fade pt-3 bg-white" id="bank-account">
                                 <form action="{{ route('backend.save_bank_account') }}" method="POST">
-                                    <input type="none" name="userId" value="{{ $userData->users_id }}" hidden/>
+                                    <input type="none" name="userId" value="{{ $userData->users_id }}" hidden />
                                     <div class="row mb-3">
                                         <label for="client_name" class="col-md-4 col-lg-3 col-form-label">Client
                                             Name</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="client_name" type="text" class="form-control" id="client_name" value="{{ $userData->nama }}" disabled>
+                                            <input name="client_name" type="text" class="form-control" id="client_name"
+                                                value="{{ $userData->nama }}" disabled>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="bank_name" class="col-md-4 col-lg-3 col-form-label">Bank Name</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="bank_name" type="text" class="form-control" id="bank_name" value="{{ $userData->bank_name }}">
+                                            <input name="bank_name" type="text" class="form-control" id="bank_name"
+                                                value="{{ $userData->bank_name }}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -116,4 +126,70 @@
 @endsection
 
 @push('after-scripts')
+    <script>
+        $(document).ready(function() {
+            console.log('s', "{{ $userData->image_path }}")
+        })
+
+        const getFile = (id) => {
+            return $('#' + id + '').val() ? $('#' + id + '').get(0).files[0] : null;
+        };
+
+        function pickImg(event) {
+            event.preventDefault();
+            $("#img-profile-pick").trigger('click')
+        }
+
+        function onChangeImgProfile(event) {
+            var selectedFile = event.target.files[0];
+            var reader = new FileReader();
+
+            var imgtag = document.getElementById("img-profile");
+            imgtag.title = selectedFile.name;
+
+            reader.onload = function(event) {
+                imgtag.src = event.target.result;
+            };
+
+            reader.readAsDataURL(selectedFile);
+
+            if (selectedFile) {
+                savePhotoProfile()
+            }
+        }
+
+        function savePhotoProfile() {
+            if (!getFile('img-profile-pick')) {
+                Swal.fire(
+                    'Photo Empty',
+                    'Select Image to update photo',
+                    'warning'
+                )
+                return
+            }
+
+            let formData = new FormData()
+            formData.append('userId', "{{ request()->route('id') }}")
+            formData.append('photo', getFile('img-profile-pick'))
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('backend.save_photo_profile') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (data) => {
+                    Swal.fire(
+                        'Success Update',
+                        'Profile Picture Has Been Updated',
+                        'success'
+                    )
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        }
+    </script>
 @endpush

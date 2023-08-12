@@ -12,6 +12,7 @@ use App\Models\UserModel;
 use DB;
 use Flash;
 use Illuminate\Http\Request;
+use Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 use Yajra\DataTables\DataTables;
@@ -57,7 +58,8 @@ class ReportController extends Controller {
             ->selectRaw("platforms.name as platform");
 
         if ($userSession->tipe_user === 'user') {
-            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin'))";
+            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id))";
+            //Log::info($generalReport->whereRaw($sqlUser)->toSql());
             $generalData = $generalReport->whereRaw($sqlUser)->get();
         } else {
             $generalData = $generalReport->get();
@@ -67,7 +69,10 @@ class ReportController extends Controller {
         $dataTable = DataTables::of($generalData)
             ->addIndexColumn()
             ->addColumn('reporting_period', '<strong>{{ $reporting_period }}</strong>')
-            ->addColumn('platform', '<strong>{{$platform}}</strong>')
+            ->addColumn('platform', function ($data) {
+                $p = empty($data->platform) ? 'Not Match' : $data->platform;
+                return '<strong>' . $p . '</strong>';
+            })
             ->addColumn('label_name', '<strong>{{$label_name}}</strong>')
             ->addColumn('artist', '<strong>{{$artist}}</strong>')
             ->addColumn('album', '<strong>{{$album}}</strong>')
@@ -99,7 +104,7 @@ class ReportController extends Controller {
     }
 
     public function saveGeneral(Request $request) {
-        \Log::warning('request ', $request->all());
+        //\Log::warning('request ', $request->all());
 
         DB::beginTransaction();
         try {
@@ -136,7 +141,7 @@ class ReportController extends Controller {
 
     public function importGeneral(Request $request) {
         try {
-            \Log::warning($request);
+            Log::warning($request);
             $file = $request->file('upload_file');
 
             Excel::import(new GeneralReportImport(), $file);

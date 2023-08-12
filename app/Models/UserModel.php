@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserModel extends BaseModel
-{
+class UserModel extends BaseModel {
     use HasFactory;
 
     protected $table = 'users';
@@ -16,9 +15,11 @@ class UserModel extends BaseModel
         'email',
         'password',
         'tipe_user',
+        'image_path',
+        'image_name',
     ];
 
-    public static function allUser(){
+    public static function allUser() {
         return self::query()->where('tipe_user', 'user')->get();
     }
 
@@ -29,6 +30,8 @@ class UserModel extends BaseModel
                     u1.id as users_id,
                     u1.nama,
                     u1.email,
+                    u1.image_path,
+                    u1.image_name,
                     b1.id as bank_account_id,
                     b1.account_name,
                     b1.account_number,
