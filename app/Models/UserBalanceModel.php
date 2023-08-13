@@ -13,6 +13,13 @@ class UserBalanceModel extends BaseModel {
 
     public $timestamp = false;
 
+    public static function lastBalanceByUserId($userId) {
+        $max = DB::raw("(SELECT MAX(id) AS id FROM users_balance WHERE users_id = $userId) AS max");
+        return self::join($max, 'users_balance.id', '=', 'max.id')
+            ->select('users_balance.*')
+            ->first();
+    }
+
     public static function balanceAnalyticByUserId($userId) {
         $sql = "SELECT
                     u2.balance as last_balance,
@@ -99,6 +106,4 @@ class UserBalanceModel extends BaseModel {
 
         return [];
     }
-
-
 }

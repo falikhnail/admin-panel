@@ -231,7 +231,8 @@
             <div class="p-5">
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-md-6">
-                        <h1 class="text-black fw-bold">Aggregator</h1>
+                        {{-- <h1 class="text-black fw-bold">Aggregator</h1> --}}
+                        <img src="{{ asset('/img/logo_name.png') }}" alt="Logo" class="rounded-circle logo" />
                     </div>
                     <div class="col-md-6">
                         <div class="float-end">
@@ -303,11 +304,13 @@
                                         </tr>
                                         <tr>
                                             <td class="total-row text-right"><strong>Sub Total</strong></td>
-                                            <td class="total-row text-center">{{ format_usd($withdraws->amount) }} </td>
+                                            <td class="total-row text-center">{{ format_usd($withdraws->amount) }}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="total-row text-right"><strong>Total</strong></td>
-                                            <td class="total-row text-center">{{ format_usd($withdraws->amount) }} </td>
+                                            <td class="total-row text-center">{{ format_usd($withdraws->amount) }}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

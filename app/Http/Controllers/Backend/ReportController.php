@@ -8,6 +8,7 @@ use App\Imports\GeneralReportImport;
 use App\Models\PlatformsModel;
 use App\Models\ReportGeneralModel;
 use App\Models\SessionKeyModel;
+use App\Models\UserBalanceModel;
 use App\Models\UserModel;
 use DB;
 use Flash;
@@ -108,8 +109,9 @@ class ReportController extends Controller {
 
         DB::beginTransaction();
         try {
+            $userId = $request->post('user_id');
             ReportGeneralModel::query()->insert([
-                'users_id' => $request->post('user_id'),
+                'users_id' => $userId,
                 'reporting_period' => $request->post('reporting_period'),
                 'platform_id' => $request->post('platform'),
                 'label_name' => $request->post('label_name'),
@@ -120,6 +122,26 @@ class ReportController extends Controller {
                 'upc' => $request->post('upc'),
                 'revenue' => $request->post('revenue'),
             ]);
+
+
+            $userData = UserModel::where('id', $userId)->first();
+            if (!empty($userData)) {
+                $lastBalanceUserData = UserBalanceModel::lastBalanceByUserId($userId);
+                $lastBalanceUser = 0;
+                if (!empty($lastBalanceUserData)) {
+                    $lastBalanceUser = $lastBalanceUserData->balance;
+                }
+
+                UserBalanceModel::query()->insert([
+                    'users_id' => $userId,
+                    'kredit' => (float) $request->post('revenue'),
+                    'debit' => 0.0,
+                    'balance' => (float) $lastBalanceUser + (float) $request->post('revenue'),
+                    'keterangan' => 'revenue',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]);
+            }
 
             Flash::success('Berhasil Menambahkan Data');
 

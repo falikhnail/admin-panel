@@ -45,9 +45,9 @@
             <hr class="divider" />
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-lg-4 text-center">
-                    <img src="{{ asset('img/Ulil.jpg') }}" class="img-profile card rounded shadow-lg">
+                    <img src="{{ asset('img/Handre.jpg') }}" class="img-profile card rounded shadow-lg">
                     <h5 class="mt-2 fw-900">
-                        Ulil
+                        Handre
                     </h5>
                     <hr class="short-divider" />
                     <h5 class="fw-900">
@@ -65,9 +65,9 @@
                     </h5>
                 </div>
                 <div class="col-lg-4 text-center">
-                    <img src="{{ asset('img/Handre.jpg') }}" class="img-profile card rounded shadow-lg">
+                    <img src="{{ asset('img/Ulil.jpg') }}" class="img-profile card rounded shadow-lg">
                     <h5 class="mt-2 fw-900">
-                        Handre
+                        Ulil
                     </h5>
                     <hr class="short-divider" />
                     <h5 class="fw-900">
