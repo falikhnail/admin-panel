@@ -24,3 +24,15 @@
         color: #fff !important;
     }
 }
+
+button:disabled,
+button[disabled] {
+    background-color: #cccccc;
+    color: #666666;
+}
+
+.btn-act:disabled,
+.btn-act[disabled='true'] {
+    background-color: #cccccc !important;
+    color: #666666 !important;
+}

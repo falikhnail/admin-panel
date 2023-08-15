@@ -190,9 +190,9 @@
             $('#m_upload_general').modal('show');
         });
 
-        $("#btn-upload-general").click((event) => {
-            event.preventDefault();
-            document.getElementById('form-upload-general').submit();
-        });
+        // $("#btn-upload-general").click((event) => {
+        //     event.preventDefault();
+        //     document.getElementById('form-upload-general').submit();
+        // });
     </script>
 @endpush

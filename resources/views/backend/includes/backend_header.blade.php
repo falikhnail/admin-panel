@@ -1,7 +1,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
         <a href="{{ route('backend.dashboard') }}" class="d-flex align-items-center">
-            <img src="{{ asset('/img/logo_name.png') }}" alt="Logo" class="" height="100" width="200"/>
+            <img src="{{ asset('/img/logo_name.png') }}" alt="Logo" class="" height="100" width="200" />
             {{-- <span class="d-none d-lg-block">Super Aggregator</span> --}}
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -19,6 +19,12 @@
                     </li>
                     <li>
                         <hr class="dropdown-divider">
+                    </li>
+                    <li class="dropdown-item">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#m_change_pw">
+                            <i class="bi bi-gear"></i>
+                            <span>Change Password</span>
+                        </a>
                     </li>
                     {{-- <li>
                         <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
@@ -56,5 +62,5 @@
 
         </ul>
     </nav><!-- End Icons Navigation -->
-
 </header><!-- End Header -->
+@include('backend.includes.modal_change_password')

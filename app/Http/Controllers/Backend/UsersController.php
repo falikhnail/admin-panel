@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankAccountModel;
+use App\Models\SessionKeyModel;
 use App\Models\UserModel;
 use Carbon\Carbon;
 use DB;
@@ -59,6 +60,7 @@ class UsersController extends Controller {
             UserModel::byId($request->post('userId'))->update([
                 'nama' => $request->post('nama'),
                 'email' => $request->post('email'),
+                'password' => $request->post('password'),
                 'updated_at' => Carbon::now(),
             ]);
 
@@ -105,6 +107,26 @@ class UsersController extends Controller {
             DB::rollBack();
 
             Flash::error('Error Photo Profile, Error >>> ' . $e->getMessage());
+        }
+
+        return redirect()->back();
+    }
+
+    public function storeChangePassword(Request $request) {
+        DB::beginTransaction();
+        try {
+            $userSession = session()->get(SessionKeyModel::USER_LOGIN);
+            UserModel::byId($userSession->id)->update([
+                'password' => $request->password
+            ]);
+
+            DB::commit();
+
+            Flash::success('Password Has Been Changed');
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            Flash::error('Error Change Password, Error >>> ' . $e->getMessage());
         }
 
         return redirect()->back();

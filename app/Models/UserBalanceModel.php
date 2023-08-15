@@ -5,6 +5,7 @@ namespace App\Models;
 use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Log;
 
 class UserBalanceModel extends BaseModel {
     use HasFactory;
@@ -105,5 +106,28 @@ class UserBalanceModel extends BaseModel {
         }
 
         return [];
+    }
+
+    public static function addRevenue($userId, $revenue){
+        $userData = UserModel::where('id', $userId)->first();
+        Log::warning($userData);
+        
+        if (!empty($userData)) {
+            $lastBalanceUserData = UserBalanceModel::lastBalanceByUserId($userId);
+            $lastBalanceUser = 0;
+            if (!empty($lastBalanceUserData)) {
+                $lastBalanceUser = $lastBalanceUserData->balance;
+            }
+
+            UserBalanceModel::query()->insert([
+                'users_id' => $userId,
+                'kredit' => (float) $revenue,
+                'debit' => 0.0,
+                'balance' => (float) $lastBalanceUser + (float) $revenue,
+                'keterangan' => 'revenue',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+        }
     }
 }

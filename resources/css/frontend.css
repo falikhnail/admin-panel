@@ -12883,46 +12883,52 @@ header.masthead .h1 {
     text-align: center;
 }
 
-.fw-900{
+.fw-900 {
     font-weight: 900;
 }
 
-.fs-88{
+.fs-88 {
     font-size: 88px;
 }
 
-.mx-w50{
+.mx-w50 {
     max-width: 40%;
 }
 
-.mt-150{
+.mt-150 {
     margin-top: 150px;
 }
 
-.text-justify{
+.text-justify {
     text-align: justify;
 }
 
-.c-grey{
+.c-grey {
     color: grey;
 }
 
-.mt-100{
+.mt-100 {
     margin-top: 100px;
 }
 
-.none{
+.none {
     color: white;
     text-decoration: none;
 }
 
-.none:hover{
+.none:hover {
     color: white;
 }
 
-.divider-lg{
+.divider-lg {
     width: 100%;
     height: 1px;
-    background-color:grey;
+    background-color: grey;
     margin: 3px;
+}
+
+.img-circle{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }

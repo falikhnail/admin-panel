@@ -19,8 +19,8 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                         <div class="position-relative">
-                            <img src="{{  asset(!empty($userData->image_path) ? $userData->image_path : 'img/user.png') }}" alt="" class="rounded-circle" width="100"
-                                height="100" id="img-profile">
+                            <img src="{{ asset(!empty($userData->image_path) ? $userData->image_path : 'img/user.png') }}"
+                                alt="" class="rounded-circle" width="100" height="100" id="img-profile">
                             <a href="javascript:void(0)" class="position-absolute bottom-0 right-2"
                                 onclick="pickImg(event)">
                                 <i class="bi bi-pencil-square"></i>
@@ -70,6 +70,17 @@
                                                 value="{{ $userData->email }}">
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                        <label for="password" class="col-md-4 col-lg-3 col-form-label">Change
+                                            Password</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <div class="input-group">
+                                                <input name="password" type="password" class="form-control" id="password" value="{{ $userData->password }}">
+                                                <button type="button" class="bi bi-eye-fill input-group-text"
+                                                    id="btn-show-pw" data-show="0"></button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn-act btn-act-primary btn-act-md">Edit
                                             Profile</button>
@@ -83,8 +94,8 @@
                                         <label for="client_name" class="col-md-4 col-lg-3 col-form-label">Client
                                             Name</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="client_name" type="text" class="form-control" id="client_name"
-                                                value="{{ $userData->nama }}" disabled>
+                                            <input name="client_name" type="text" class="form-control"
+                                                id="client_name" value="{{ $userData->nama }}" disabled>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -128,7 +139,23 @@
 @push('after-scripts')
     <script>
         $(document).ready(function() {
-            console.log('s', "{{ $userData->image_path }}")
+            $("#btn-show-pw").on('click', (event) => {
+                const isShow = event.target.getAttribute('data-show') == 1
+                if (isShow) {
+                    event.target.setAttribute('data-show', 0)
+                    $("#password").get(0).type = 'password'
+
+                    event.target.classList.remove('bi-eye-slash-fill')
+                    event.target.classList.add('bi-eye-fill')
+                } else {
+                    event.target.setAttribute('data-show', 1)
+                    $("#password").get(0).type = 'text'
+
+                    event.target.classList.remove('bi-eye-fill')
+                    event.target.classList.add('bi-eye-slash-fill')
+                }
+
+            })
         })
 
         const getFile = (id) => {

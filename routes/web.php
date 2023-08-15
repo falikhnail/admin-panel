@@ -76,5 +76,7 @@ Route::group(
         Route::post('save-profile', 'UsersController@saveProfile')->name('save_profile');
         Route::post('save-bank-account', 'BankAccountController@saveBankAccount')->name('save_bank_account');
         Route::post('save-photo-profile', 'UsersController@storePhotoProfile')->name('save_photo_profile');
+
+        Route::post('change-password', 'UsersController@storeChangePassword')->name('change_password');
     }
 );

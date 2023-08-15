@@ -11,7 +11,7 @@
                     {{ $message['important'] ? 'alert-dismissible fade show' : '' }}"
             role="alert">
             @if ($message['important'])
-                <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close" data-bs-dismiss="#alert"></button>
             @endif
 
             {!! $message['message'] !!}

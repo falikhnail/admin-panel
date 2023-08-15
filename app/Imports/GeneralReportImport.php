@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\PlatformsModel;
 use App\Models\ReportGeneralModel;
 use App\Models\SessionKeyModel;
+use App\Models\UserBalanceModel;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Collection;
@@ -16,6 +17,7 @@ use Throwable;
 class GeneralReportImport implements ToArray {
 
     private $userSession;
+    private $userIdSelected;
 
     private $headerKeys = [
         'no',
@@ -30,8 +32,9 @@ class GeneralReportImport implements ToArray {
         'revenue',
     ];
 
-    public function __construct() {
+    public function __construct($userIdSelected) {
         $this->userSession = Session::get(SessionKeyModel::USER_LOGIN);
+        $this->userIdSelected = $userIdSelected;
     }
 
     /**
@@ -55,8 +58,9 @@ class GeneralReportImport implements ToArray {
                         }
                     }
 
+                    $revenue = (float)$values[9];
                     $data = [
-                        'users_id' => $this->userSession->id,
+                        'users_id' => $this->userIdSelected,
                         'reporting_period' => $values[1] ?: null,
                         'platform_id' => $platformId,
                         'label_name' => $values[3] ?: null,
@@ -65,12 +69,14 @@ class GeneralReportImport implements ToArray {
                         'title' => $values[6] ?: null,
                         'isrc' => $values[7] ?: null,
                         'upc' => $values[8] ?: null,
-                        'revenue' => $values[9] ?: null,
+                        'revenue' => $revenue  ?: null,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ];
 
                     ReportGeneralModel::query()->insert($data);
+
+                    UserBalanceModel::addRevenue($this->userIdSelected, $revenue);
                 }
             }
         } catch (Throwable $e) {

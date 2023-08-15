@@ -44,8 +44,8 @@
             <h1 class="text-center my-4">Tim Kami</h1>
             <hr class="divider" />
             <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-lg-4 text-center">
-                    <img src="{{ asset('img/Handre.jpg') }}" class="img-profile card rounded shadow-lg">
+                <div class="col-lg-4 text-center" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="{{ asset('img/Handre.jpg') }}" class="card rounded-5 img-fluid shadow-lg">
                     <h5 class="mt-2 fw-900">
                         Handre
                     </h5>
@@ -54,8 +54,8 @@
                         Digital distribution manager
                     </h5>
                 </div>
-                <div class="col-lg-4 text-center">
-                    <img src="{{ asset('img/Angga.jpg') }}" class="img-profile card rounded shadow-lg">
+                <div class="col-lg-4 text-center" data-aos="fade-down" data-aos-duration="1000">
+                    <img src="{{ asset('img/Angga.jpg') }}" class="card rounded-5 img-fluid shadow-lg">
                     <h5 class="mt-2 fw-900">
                         Angga
                     </h5>
@@ -64,8 +64,8 @@
                         Legal & Hr Manager
                     </h5>
                 </div>
-                <div class="col-lg-4 text-center">
-                    <img src="{{ asset('img/Ulil.jpg') }}" class="img-profile card rounded shadow-lg">
+                <div class="col-lg-4 text-center" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="{{ asset('img/Ulil.jpg') }}" class="card rounded-5 img-fluid shadow-lg">
                     <h5 class="mt-2 fw-900">
                         Ulil
                     </h5>
@@ -78,13 +78,16 @@
         </div>
     </section>
     <section class="bg-primary p-3 d-flex align-items-center justify-content-center">
-        <div class="row gx-4 gx-lg-5" data-aos="fade-up-right">
+        <div class="row gx-4 gx-lg-5" data-aos-once="true" data-aos="zoom-in-up" data-aos-duration="1000">
             <div class="col-lg-4 col-md-4">
                 <div class="d-flex align-items-center">
                     <i class="bi bi-eye fs-88 text-white"></i>
                     <div class="row row-cols-1 text-white ms-2">
                         <div class="col">
-                            <h2 class="">16 Juta+</h2>
+                            <h2>
+                                <span class="count" data-target="16" >0</span>
+                                <span>Juta+</span>
+                            </h2>
                         </div>
                         <div class="col">
                             View / Minggu
@@ -97,7 +100,10 @@
                     <i class="bi bi-people fs-88 text-white"></i>
                     <div class="row row-cols-1 text-white ms-2">
                         <div class="col">
-                            <h2 class="">22 Juta+</h2>
+                            <h2>
+                                <span class="count" data-target="22">0</span>
+                                <span>Juta+</span>
+                            </h2>
                         </div>
                         <div class="col">
                             Subscribers
@@ -110,7 +116,10 @@
                     <i class="bi bi-hand-thumbs-up fs-88 text-white"></i>
                     <div class="row row-cols-1 text-white  ms-2">
                         <div class="col">
-                            <h2 class="">220+</h2>
+                            <h2>
+                                <span class="count" data-target="220">0</span>
+                                <span>+</span>
+                            </h2>
                         </div>
                         <div class="col">
                             Mitra & Klien
@@ -125,9 +134,9 @@
             <h1 class="text-center my-4">Layanan Kami</h1>
             <hr class="divider" />
             <div class="row row-cols-1 gx-4 gx-lg-5 justify-content-center mt-150">
-                <div class="col"  data-aos="fade-up-left">
+                <div class="col" data-aos="fade-up-left">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('img/s-1.jpg') }}" alt="" class="card rounded-lg img-fluid m-5">
+                        <img src="{{ asset('img/s-1.jpg') }}" alt="" class="card rounded-5 img-fluid m-5">
                         <div class="d-flex flex-column align-items-center justify-content-center ms-5 mx-w50 c-grey">
                             <h3 class="fw-normal">Distribusi</h3>
                             <p class="fw-lighter text-justify">“Kami percaya ada penonton yang tepat untuk setiap karya.
@@ -138,7 +147,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col mt-100"  data-aos="fade-up-left">
+                <div class="col mt-100" data-aos="fade-up-left">
                     <div class="d-flex justify-content-center">
                         <div class="d-flex flex-column align-items-center justify-content-center mx-w50 c-grey me-5">
                             <h3 class="fw-normal">Optimasi</h3>
@@ -148,12 +157,12 @@
                                 banyak royalti Anda.”
                             </p>
                         </div>
-                        <img src="{{ asset('img/s-2.jpg') }}" alt="" class="card rounded-lg img-fluid m-5">
+                        <img src="{{ asset('img/s-2.jpg') }}" alt="" class="card rounded-5 img-fluid m-5">
                     </div>
                 </div>
-                <div class="col mt-100"  data-aos="fade-up-right">
+                <div class="col mt-100" data-aos="fade-up-right">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('img/bisnis.jpg') }}" alt="" class="card rounded-lg img-fluid m-5">
+                        <img src="{{ asset('img/bisnis.jpg') }}" alt="" class="card rounded-5 img-fluid m-5">
                         <div class="d-flex flex-column align-items-center justify-content-center ms-5 mx-w50 c-grey">
                             <h3 class="fw-normal">Perlindungan</h3>
                             <p class="fw-lighter text-justify">“Kami menjaga karya anda di berbagai platform musik untuk
@@ -164,7 +173,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col mt-100"  data-aos="fade-up-left">
+                <div class="col mt-100" data-aos="fade-up-left">
                     <div class="d-flex justify-content-center">
                         <div class="d-flex flex-column align-items-center justify-content-center mx-w50 c-grey me-5">
                             <h3 class="fw-normal">Transparansi</h3>
@@ -174,7 +183,7 @@
                                 real time.”
                             </p>
                         </div>
-                        <img src="{{ asset('img/s-3.jpg') }}" alt="" class="card rounded-lg img-fluid m-5">
+                        <img src="{{ asset('img/s-3.jpg') }}" alt="" class="card rounded-5 img-fluid m-5">
                     </div>
                 </div>
             </div>
@@ -401,5 +410,28 @@
         $(document).ready(function() {
 
         });
+
+        const counters = document.querySelectorAll(".count");
+            const speed = 150;
+
+            counters.forEach((counter) => {
+                const updateCount = () => {
+                    const target = parseInt(+counter.getAttribute("data-target"));
+                    const count = parseInt(+counter.innerText);
+                    let increment = Math.trunc(target / speed);
+                    if(target < 50){
+                        increment = 1
+                    }
+
+                    if (count < target) {
+                        counter.innerText = count + increment;
+                        setTimeout(updateCount, target < 50 ? 100 : 1);
+                    } else {
+                        count.innerText = target;
+                    }
+                };
+
+                updateCount();
+            });
     </script>
 @endpush
