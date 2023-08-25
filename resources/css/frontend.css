@@ -8539,6 +8539,11 @@ fieldset:disabled .btn {
     margin-left: 3rem !important;
 }
 
+.mx-6 {
+    margin-right: 5rem !important;
+    margin-left: 5rem !important;
+}
+
 .mx-auto {
     margin-right: auto !important;
     margin-left: auto !important;
@@ -12615,6 +12620,7 @@ html {
 body {
     width: 100%;
     height: 100%;
+    overflow: auto;
 }
 
 .page-section {
@@ -12892,8 +12898,15 @@ header.masthead .h1 {
 }
 
 .mx-w50 {
-    max-width: 40%;
+    max-width: 100%;
 }
+
+@media (min-width: 768px) {
+    .mx-w50 {
+        max-width: 40%;
+    }
+}
+
 
 .mt-150 {
     margin-top: 150px;
@@ -12927,8 +12940,129 @@ header.masthead .h1 {
     margin: 3px;
 }
 
-.img-circle{
+.img-circle {
     width: 200px;
     height: 200px;
     border-radius: 50%;
+}
+
+.horizontal-scrollable {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.max-width {
+    width: 100vw !important;
+}
+
+.slideshow {
+    height: 150px;
+    margin: 0 auto;
+    position: relative;
+    transform: translate3d(0, 0, 0);
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slideshow .move {
+    height: 100%;
+    transform: translate3d(0, 0, 0);
+    display: flex;
+    animation: moveSlideshow 10s linear infinite;
+}
+
+
+
+.slideshow .move>img {
+    height: 150px;
+    width: auto;
+}
+
+
+.slideshow:hover .move {
+    animation-play-state: paused;
+}
+
+@keyframes moveSlideshow {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+        /*The width of the page needs to be taken into consideration*/
+    }
+}
+
+@keyframes move {
+    to {
+        right: 100%;
+        transform: translate(0);
+    }
+}
+
+@keyframes run {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: translate3d(20vw, 0, 0);
+    }
+
+    100% {
+        left: translate3d(-50vw, 0, 0);
+    }
+}
+
+@keyframes marquee {
+    0% {
+        transform: translate3d(-50%, 0, 0);
+    }
+
+    45% {
+        transform: translate3d(-100vw, 0, 0);
+        opacity: 1;
+    }
+
+    45.1% {
+        opacity: 0;
+        /* at this point in time the element is fully on the left and hidden */
+    }
+
+    55% {
+        transform: translate3d(100vw, 0, 0);
+        opacity: 0;
+        /* at this point in time the element is fully on the right but still hidden */
+    }
+
+    55.1% {
+        opacity: 1;
+        /* now we make it visible again so that it can come back into view */
+    }
+
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+.page-section-grey {
+    padding: 3em;
+    background-color: #f8f9fa;
+    opacity: 1;
+}
+
+.box-img {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.box-img .img-layanan {
+    vertical-align: middle;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 20px;
 }

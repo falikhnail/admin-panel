@@ -24,6 +24,7 @@ class GeneralReportImport implements ToArray {
         'reporting_period',
         'platform',
         'label_name',
+        'channel_name',
         'artist',
         'album',
         'title',
@@ -58,17 +59,18 @@ class GeneralReportImport implements ToArray {
                         }
                     }
 
-                    $revenue = (float)$values[9];
+                    $revenue = (float)$values[10];
                     $data = [
                         'users_id' => $this->userIdSelected,
                         'reporting_period' => $values[1] ?: null,
                         'platform_id' => $platformId,
                         'label_name' => $values[3] ?: null,
-                        'artist' => $values[4] ?: null,
-                        'album' => $values[5] ?: null,
-                        'title' => $values[6] ?: null,
-                        'isrc' => $values[7] ?: null,
-                        'upc' => $values[8] ?: null,
+                        'channel_name' => $values[4] ?: null,
+                        'artist' => $values[5] ?: null,
+                        'album' => $values[6] ?: null,
+                        'title' => $values[7] ?: null,
+                        'isrc' => $values[8] ?: null,
+                        'upc' => $values[9] ?: null,
                         'revenue' => $revenue  ?: null,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
@@ -118,6 +120,9 @@ class GeneralReportImport implements ToArray {
             }
             if ($key === 9 && $header !== $this->headerKeys[9]) {
                 $message[] = 'Posisikan Cell Header ' . $this->headerKeys[9] . ' Sesusai Template Upload';
+            }
+            if ($key === 9 && $header !== $this->headerKeys[10]) {
+                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[10] . ' Sesusai Template Upload';
             }
         }
 

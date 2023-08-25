@@ -123,6 +123,7 @@ class ReportController extends Controller {
                 'isrc' => $request->post('isrc'),
                 'upc' => $request->post('upc'),
                 'revenue' => $request->post('revenue'),
+                'channel_name' => $request->post('channel_name'),
             ]);
 
 

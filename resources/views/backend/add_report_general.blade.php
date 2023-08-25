@@ -60,6 +60,14 @@
                                             </div>
                                         </div>
                                         <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="channel_name" name="channel_name"
+                                                placeholder="Type Channel Name" required>
+                                            <label for="channel_name">Channel Name</label>
+                                            <div class="invalid-feedback">
+                                                Please Fill Channel Name
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="artist" name="artist"
                                                 placeholder="Type Artist" required>
                                             <label for="artist">Artist</label>
@@ -118,8 +126,8 @@
                                             </div>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control number" id="revenue" name="revenue"
-                                                placeholder="Type Revenue" required>
+                                            <input type="text" class="form-control number" id="revenue"
+                                                name="revenue" placeholder="Type Revenue" required>
                                             <label for="revenue">Revenue</label>
                                             <div class="invalid-feedback">
                                                 Please Fill Revenue

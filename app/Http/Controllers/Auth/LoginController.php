@@ -13,7 +13,30 @@ use Illuminate\Support\Facades\Session;
 class LoginController extends Controller {
 
     public function index() {
-        return view('auth.login');
+        $noPonselAdmin = "6282220002224";
+        $formatRegist = urlencode(<<<EOD
+Dear Partner,
+Mohon untuk melengkapi data-data berikut.
+📝 Master Music Client Data
+
+[ Nama label ]
+
+Lengkapi Data
+Nama Lengkap :
+Nama Alias :
+Email :
+No WA :
+Nama Bank :
+Rekening Atas Nama :
+Nomor Rekening :
+Cabang Kota Bank :
+EOD);
+
+        $urlWa = "https://api.whatsapp.com/send/?phone=$noPonselAdmin&text=$formatRegist";
+
+        return view('auth.login', compact(
+            'urlWa'
+        ));
     }
 
 
@@ -31,7 +54,7 @@ class LoginController extends Controller {
             Session::put(SessionKeyModel::USER_LOGIN, $userModel);
             Session::put('test', 'aku');
 
-            return redirect('/');
+            return redirect('/control');
         }
 
         return back()->withErrors([

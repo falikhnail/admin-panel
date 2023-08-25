@@ -13,8 +13,7 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div>
-                    <input type="email" name="email" placeholder="Masukkan Email" class="form-rounded w-full"
-                        required />
+                    <input type="email" name="email" placeholder="Masukkan Email" class="form-rounded w-full" required />
                 </div>
                 <div class="mt-4">
                     <input type="password" name="password" placeholder="Masukkan Password" class="form-rounded w-full"
@@ -29,7 +28,7 @@
         </div>
         <div>
             <p class="text-center text-gray-900 mt-4 font-extrabold dark:text-white">
-                Belum Memiliki Akun? <a href="{{ route('register') }}" class="underline c-act-primary">Daftar</a>.
+                Belum Memiliki Akun? <a href="{{ $urlWa }}" class="underline c-act-primary" target="_blank">Daftar</a>.
             </p>
         </div>
     </div>

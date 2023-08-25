@@ -319,11 +319,13 @@
                         <div class="card-footer">
                             <strong>Withdraw Notes</strong>
                             <ul>
-                                <li>Kurs : 14.510
+                                <li>
+                                    Kurs : {{ format_rupiah($finalCurrency) }}
                                     Untuk sekarang pemerintah mewajibkan pemotongan pajak sebesar 3% untuk yang tidak
                                     punya
                                     npwp
-                                    dan 2.5% untuk yang punya npwp</li>
+                                    dan 2.5% untuk yang punya NPWP
+                                </li>
                             </ul>
                         </div>
                     </div>

@@ -55,6 +55,28 @@ class GenerateMenus {
                     //'class' => 'nav-link',
                 ]);
 
+            $reports->add('<i class="bi bi-circle"></i> Artist', [
+                'route' => 'backend.report_artist',
+            ])
+            ->data([
+                'order'         => 100,
+                'activematches' => 'control/report-artist',
+            ])
+            ->link->attr([
+                //'class' => 'nav-link',
+            ]);
+
+            $reports->add('<i class="bi bi-circle"></i> Channel', [
+                'route' => 'backend.report_channel',
+            ])
+                ->data([
+                    'order'         => 100,
+                    'activematches' => 'control/report-channel',
+                ])
+                ->link->attr([
+                    //'class' => 'nav-link',
+                ]);
+
             $menu->add('<i class=" bi bi-person"></i> Withdraws', [
                 'route' => 'backend.withdraws',
                 'class' => 'nav-item',

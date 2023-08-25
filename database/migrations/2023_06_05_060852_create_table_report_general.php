@@ -19,6 +19,7 @@ return new class extends Migration {
 
             $table->date('reporting_period')->default(date('Y-m-d'));
             $table->string('label_name', 100);
+            $table->string('channel_name');
             $table->string('artist', 100);
             $table->string('album', 100);
             $table->string('title', 100);

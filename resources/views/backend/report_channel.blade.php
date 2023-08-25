@@ -1,16 +1,16 @@
 @extends('backend.layouts.app')
 
 @section('title')
-    Report General
+    Report Channel
 @endsection
 
 @section('title_main')
-    Report General
+    Report Channel
 @endsection
 
 @section('breadcrumb_item')
     <li class="breadcrumb-item">Reports</li>
-    <li class="breadcrumb-item active">General</li>
+    <li class="breadcrumb-item active">Channel</li>
 @endsection
 
 @section('content')
@@ -19,33 +19,18 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
-                        Report General
+                        Report Channel
                     </div>
                     <div class="row mb-xl-5">
                         <div class="col">
                             <div class="form-group">
-                                <label for="#platform" class="form-label">Platform</label>
-                                <select class="form-control" id="platform">
-                                    <option selected disabled value="">Select Platform</option>
-                                    <option value="0">ALL</option>
-                                    @foreach ($platforms as $p)
-                                        <option value="{{ $p->id }}">{{ $p->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="#reportDate" class="form-label">Report Date</label>
+                                <input type="text" class="form-control datepicker" id="reportDate"
+                                    name="report-date" placeholder="Input Report Date">
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="#accountringPeriod" class="form-label">Accounting Period</label>
-                                <input type="text" class="form-control datepicker" id="accountringPeriod"
-                                    name="accounting-period" placeholder="Input Accounting Period">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-
                         </div>
                     </div>
-                    <div class="divider mb-3"></div>
+                    {{-- <div class="divider mb-3"></div>
                     <div class="row my-5">
                         <div class="col-xs-12 col-md-12 col-lg-12">
                             <div class="float-start">
@@ -63,29 +48,20 @@
                                     target="_blank">
                                     <i class="bi bi-arrow-down-circle"></i> Download
                                 </a>
-                                {{-- <button type="button" class="btn-act btn-act-primary btn-act-md" id="btn-refresh">
-                                    <i class="bi bi-plus-circle"></i> Refresh
-                                </button> --}}
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="divider mb-3"></div>
                     <div class="row">
                         <div class="col-xs-12 col-md-12 col-lg-12">
                             <table class="table table-bordered table-hover" id="datatable">
                                 <thead>
                                     <tr class="text-center">
-                                        <th>Noid</th>
-                                        <th>Reporting Period</th>
-                                        <th>Platforms</th>
+                                        <th>No</th>
                                         <th>Label Name</th>
-                                        <th>Artist</th>
-                                        <th>Album</th>
-                                        <th>Title</th>
-                                        <th>ISRC</th>
-                                        <th>UPC</th>
+                                        <th>Channel Name</th>
                                         <th>Revenue</th>
-                                        <!-- 10 rows -->
+                                        <th>Report Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -115,53 +91,38 @@
                 "processing": "Loading Data ..."
             },
             ajax: {
-                url: '{{ route('backend.general_list') }}',
+                url: '{{ route('backend.channel_list') }}',
                 data: function(d) {
                     d.platform = $('#platform').val();
-                    d.accountringPeriod = $('#accountringPeriod').val();
+                    d.reportDate = $('#reportDate').val();
+
+                    console.log('params', d);
                 }
             },
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
-                    searchable: false
-                },
-                {
-                    data: 'reporting_period',
-                    name: 'reporting_period'
-                },
-                {
-                    data: 'platform',
-                    name: 'platform',
+                    searchable: false,
+                    className: "text-center"
                 },
                 {
                     data: 'label_name',
                     name: 'label_name'
                 },
                 {
-                    data: 'artist',
-                    name: 'artist',
-                },
-                {
-                    data: 'album',
-                    name: 'album',
-                },
-                {
-                    data: 'title',
-                    name: 'title',
-                },
-                {
-                    data: 'isrc',
-                    name: 'isrc',
-                },
-                {
-                    data: 'upc',
-                    name: 'upc',
+                    data: 'channel_name',
+                    name: 'channel_name',
                 },
                 {
                     data: 'revenue',
                     name: 'revenue',
+                    className: "text-center"
+                },
+                {
+                    data: 'report_date',
+                    name: 'report_date',
+                    className: "text-center"
                 },
             ],
             ordering: false,
@@ -171,11 +132,7 @@
             // }
         });
 
-        $('#platform').change(function() {
-            table.draw();
-        });
-
-        $('#accountringPeriod').change(function() {
+        $('#reportDate').change(function() {
             table.draw();
         });
 
@@ -187,10 +144,5 @@
             event.preventDefault();
             $('#m_upload_general').modal('show');
         });
-
-        // $("#btn-upload-general").click((event) => {
-        //     event.preventDefault();
-        //     document.getElementById('form-upload-general').submit();
-        // });
     </script>
 @endpush
