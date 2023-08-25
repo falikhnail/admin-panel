@@ -19,7 +19,7 @@
                 <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
             </ul>
         </div>
-        <a class="btn btn-primary btn-xl"
+        <a class="btn btn-primary btn-xl d-none d-sm-inline"
             href="{{ !empty($userSession) ? route('backend.dashboard') : route('login') }}">{{ !empty($userSession) ? 'Dashboard' : 'Login' }}</a>
     </div>
 </nav>

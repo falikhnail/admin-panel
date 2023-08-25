@@ -53,13 +53,25 @@ Route::group(
         Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
         // * report
+        // * general
         Route::get('report-general', 'ReportController@general')->name('report_general');
         Route::get('report-general-add', 'ReportController@addGeneral')->name('report_general_add');
-
         Route::get('general-list', 'ReportController@generalDataTable')->name('general_list');
         Route::post('save-general', 'ReportController@saveGeneral')->name('save_general');
         Route::get('export-general', 'ReportController@exportGeneral')->name('export_general');
         Route::post('import-general', 'ReportController@importGeneral')->name('import_general');
+
+        // * artist
+        Route::get('report-artist', 'ReportArtistController@index')->name('report_artist');
+        Route::get('report-artist-add', 'ReportArtistController@create')->name('report_artist_add');
+        Route::get('artist-list', 'ReportArtistController@indexDataTable')->name('artist_list');
+        Route::post('save-artist', 'ReportArtistController@store')->name('save_artist');
+
+        // * channel
+        Route::get('report-channel', 'ReportChannelController@index')->name('report_channel');
+        Route::get('report-channel-add', 'ReportChannelController@create')->name('report_channel_add');
+        Route::get('channel-list', 'ReportChannelController@indexDataTable')->name('channel_list');
+        Route::post('save-channel', 'ReportChannelController@store')->name('save_channel');
 
         // * withdraws
         Route::get('withdraws', 'WithdrawsController@index')->name('withdraws');
@@ -76,5 +88,7 @@ Route::group(
         Route::post('save-profile', 'UsersController@saveProfile')->name('save_profile');
         Route::post('save-bank-account', 'BankAccountController@saveBankAccount')->name('save_bank_account');
         Route::post('save-photo-profile', 'UsersController@storePhotoProfile')->name('save_photo_profile');
+
+        Route::post('change-password', 'UsersController@storeChangePassword')->name('change_password');
     }
 );

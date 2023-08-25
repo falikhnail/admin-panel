@@ -21,10 +21,12 @@ use Yajra\DataTables\DataTables;
 class ReportController extends Controller {
 
     public function general() {
+        $user = UserModel::allUser();
         $platforms = PlatformsModel::all();
 
         return view('backend.report_general', compact(
-            'platforms'
+            'platforms',
+            'user'
         ));
     }
 
@@ -121,27 +123,11 @@ class ReportController extends Controller {
                 'isrc' => $request->post('isrc'),
                 'upc' => $request->post('upc'),
                 'revenue' => $request->post('revenue'),
+                'channel_name' => $request->post('channel_name'),
             ]);
 
 
-            $userData = UserModel::where('id', $userId)->first();
-            if (!empty($userData)) {
-                $lastBalanceUserData = UserBalanceModel::lastBalanceByUserId($userId);
-                $lastBalanceUser = 0;
-                if (!empty($lastBalanceUserData)) {
-                    $lastBalanceUser = $lastBalanceUserData->balance;
-                }
-
-                UserBalanceModel::query()->insert([
-                    'users_id' => $userId,
-                    'kredit' => (float) $request->post('revenue'),
-                    'debit' => 0.0,
-                    'balance' => (float) $lastBalanceUser + (float) $request->post('revenue'),
-                    'keterangan' => 'revenue',
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                ]);
-            }
+            UserBalanceModel::addRevenue($userId, $request->post('revenue'));
 
             Flash::success('Berhasil Menambahkan Data');
 
@@ -163,10 +149,9 @@ class ReportController extends Controller {
 
     public function importGeneral(Request $request) {
         try {
-            Log::warning($request);
             $file = $request->file('upload_file');
 
-            Excel::import(new GeneralReportImport(), $file);
+            Excel::import(new GeneralReportImport($request->user_id), $file);
 
             Flash::success('File Berhasil di Import');
         } catch (Throwable $e) {

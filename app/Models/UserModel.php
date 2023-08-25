@@ -30,6 +30,7 @@ class UserModel extends BaseModel {
                     u1.id as users_id,
                     u1.nama,
                     u1.email,
+                    u1.password,
                     u1.image_path,
                     u1.image_name,
                     b1.id as bank_account_id,

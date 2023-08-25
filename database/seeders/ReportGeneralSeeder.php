@@ -28,7 +28,8 @@ class ReportGeneralSeeder extends Seeder
                 'title' => 'seeder title 1',
                 'isrc' => 'seeder isrc 1',
                 'upc' => 20000,
-                'revenue' => 20.0
+                'revenue' => 20.0,
+                'channel_name' => 'test channel name 1'
             ],
             [
                 'created_at' => Carbon::now(),
@@ -41,7 +42,8 @@ class ReportGeneralSeeder extends Seeder
                 'title' => 'seeder title 2',
                 'isrc' => 'seeder isrc 2',
                 'upc' => 20000,
-                'revenue' => 20.0
+                'revenue' => 20.0,
+                'channel_name' => 'test channel name 2'
             ],
         ];
 

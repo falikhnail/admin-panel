@@ -11,7 +11,9 @@ use App\Models\WithdrawModel;
 use Carbon\Carbon;
 use DB;
 use Flash;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Log;
 use Session;
 use Throwable;
 use Yajra\DataTables\Facades\DataTables;
@@ -64,7 +66,7 @@ class WithdrawsController extends Controller {
             ->addColumn('action', function (WithdrawModel $wd) {
                 $lastBalance =  UserModel::lastBalanceByUserId($wd->users_id);
                 $balance = !empty($lastBalance) ? $lastBalance->balance : 0;
-                $urlInvoice = route('backend.withdraws_invoice', [$wd->id]) ;
+                $urlInvoice = route('backend.withdraws_invoice', [$wd->id]);
 
                 return view('backend.includes.act_wd', compact('wd', 'balance', 'urlInvoice'));
             })
@@ -186,7 +188,25 @@ class WithdrawsController extends Controller {
 
     public function invoiceWithdraws($id) {
         $withdraws = WithdrawModel::invoiceWithdrawsById($id);
+        $currency = $this->currencyConverter();
+        $finalCurrency = count($currency) > 0 && array_key_exists('idr', $currency) ?  $currency['idr'] : 0;
+        if($finalCurrency > 0){
+            $finalCurrency -= 200;
+        }
 
-        return view('backend.invoice_withdraws', compact('withdraws'));
+        return view('backend.invoice_withdraws', compact(
+            'withdraws',
+            'finalCurrency'
+        ));
+    }
+
+    public function currencyConverter() {
+        $currencyUrl = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/";
+        $usdToIdr = "usd/idr.json";
+        $finalUrl = $currencyUrl . $usdToIdr;
+
+        $client = new Client();
+        $request = $client->get($finalUrl);
+        return json_decode($request->getBody(), true);
     }
 }
