@@ -71,11 +71,11 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="password" class="col-md-4 col-lg-3 col-form-label">Change
+                                        <label for="passwordProfile" class="col-md-4 col-lg-3 col-form-label">Change
                                             Password</label>
                                         <div class="col-md-8 col-lg-9">
                                             <div class="input-group">
-                                                <input name="password" type="password" class="form-control" id="password" value="{{ $userData->password }}">
+                                                <input name="password" type="password" class="form-control" id="passwordProfile" value="{{ $userData->password }}">
                                                 <button type="button" class="bi bi-eye-fill input-group-text"
                                                     id="btn-show-pw" data-show="0"></button>
                                             </div>
@@ -143,13 +143,13 @@
                 const isShow = event.target.getAttribute('data-show') == 1
                 if (isShow) {
                     event.target.setAttribute('data-show', 0)
-                    $("#password").get(0).type = 'password'
+                    $("#passwordProfile").get(0).type = 'password'
 
                     event.target.classList.remove('bi-eye-slash-fill')
                     event.target.classList.add('bi-eye-fill')
                 } else {
                     event.target.setAttribute('data-show', 1)
-                    $("#password").get(0).type = 'text'
+                    $("#passwordProfile").get(0).type = 'text'
 
                     event.target.classList.remove('bi-eye-fill')
                     event.target.classList.add('bi-eye-slash-fill')
