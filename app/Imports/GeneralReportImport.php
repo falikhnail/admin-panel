@@ -59,10 +59,17 @@ class GeneralReportImport implements ToArray {
                         }
                     }
 
+                    //ignore empty row
+                    if (empty($values[1]) || empty($values[2]) || empty($values[3]) || empty($values[4])) {
+                        continue;
+                    }
+
+                    $reportingPeriod = !empty($values[1]) ? date('Y-m-d', strtotime($values[1])) : null;
                     $revenue = (float)$values[10];
+
                     $data = [
                         'users_id' => $this->userIdSelected,
-                        'reporting_period' => $values[1] ?: null,
+                        'reporting_period' => $reportingPeriod,
                         'platform_id' => $platformId,
                         'label_name' => $values[3] ?: null,
                         'channel_name' => $values[4] ?: null,
