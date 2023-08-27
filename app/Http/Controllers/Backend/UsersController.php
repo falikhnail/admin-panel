@@ -9,8 +9,10 @@ use App\Models\UserModel;
 use Carbon\Carbon;
 use DB;
 use Flash;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Log;
+use Str;
 use Throwable;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -47,7 +49,11 @@ class UsersController extends Controller {
         return $dataTable->make(true);
     }
 
-    public function storeProfileUser($id) {
+    public function create() {
+        return view('backend.add_user');
+    }
+
+    public function profileUser($id) {
         $userData = UserModel::lastBalanceByUserId($id);
 
         return view('backend.user_profile', compact('userData'));
@@ -130,5 +136,38 @@ class UsersController extends Controller {
         }
 
         return redirect()->back();
+    }
+
+    public function storeUser(Request $request) {
+        DB::beginTransaction();
+        try {
+            try{
+                UserModel::query()->insert([
+                    'nama' => $request->name,
+                    'email' => $request->email,
+                    'password' => $request->password_user,
+                    'tipe_user' => $request->user_type
+                ]);
+            }catch(QueryException $e){
+                if($e->errorInfo[1] == 1062){
+                    throw new \Exception('User Already Exists');
+                }
+            }
+
+
+            DB::commit();
+
+            Flash::success('User Has Been Added');
+
+            return redirect('control/users');
+        } catch (Throwable $e) {
+            $message = $e->getMessage();
+
+            DB::rollBack();
+
+            Flash::error('Error Add User, Error >>> ' . $message);
+
+            return redirect()->back();
+        }
     }
 }

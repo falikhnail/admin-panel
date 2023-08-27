@@ -20,6 +20,19 @@
                     <div class="card-title">
                         Users
                     </div>
+                    <div class="row my-5">
+                        <div class="col-xs-12 col-md-12 col-lg-12">
+                            <div class="float-start">
+                                @if ($userSession->tipe_user === 'admin')
+                                    <a href="{{ route('backend.create_user') }}" class="btn-act btn-act-primary btn-act-md">
+                                        <i class="bi bi-plus-circle"></i>
+                                        Add
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider mb-3"></div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <table class="table table-bordered table-hover" id="datatable">
