@@ -27,7 +27,7 @@
                                 <h4 class="c-act-primary">Balance</h4>
                                 <span class="badge bg-act-primary p-2">{{ $balance }}</span>
                             </div>
-                            <span class="text-danger mt-3 f-15">Minimal Withdraws $30.00</h4>
+                            <span class="text-danger mt-3 f-15">Minimal Withdraws $50.00</h4>
                         </div>
                         <div class="divider mb-3"></div>
                     @endif

@@ -52,7 +52,7 @@ class ReportChannelController extends Controller
         $generalReport = $generalReport->select('report_general.*');
 
         if ($userSession->tipe_user === 'user') {
-            $sqlUser = "(report_general.user_id = $userSession->id or user_id in (select id from users where tipe_user =  'admin' and id = $userSession->id))";
+            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id))";
             //Log::info($generalReport->whereRaw($sqlUser)->toSql());
             $generalData = $generalReport->whereRaw($sqlUser)->get();
         } else {

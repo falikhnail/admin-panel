@@ -107,8 +107,8 @@ class WithdrawsController extends Controller {
                 Flash::error('Amount Melebihi Balance');
 
                 return back();
-            } elseif ((int) $request->amount < 30.0) {
-                Flash::error('Amount Harus Lebih dari $30.00');
+            } elseif ((int) $request->amount < 50.0) {
+                Flash::error('Amount Harus Lebih dari $50.00');
 
                 return back();
             } elseif ((int)$request->amount === 0) {
