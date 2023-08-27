@@ -121,7 +121,7 @@ class GeneralReportImport implements ToArray {
             if ($key === 9 && $header !== $this->headerKeys[9]) {
                 $message[] = 'Posisikan Cell Header ' . $this->headerKeys[9] . ' Sesusai Template Upload';
             }
-            if ($key === 9 && $header !== $this->headerKeys[10]) {
+            if ($key === 10 && $header !== $this->headerKeys[10]) {
                 $message[] = 'Posisikan Cell Header ' . $this->headerKeys[10] . ' Sesusai Template Upload';
             }
         }

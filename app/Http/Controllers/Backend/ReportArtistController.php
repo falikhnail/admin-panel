@@ -64,7 +64,7 @@ class ReportArtistController extends Controller {
             ->addIndexColumn()
             ->addColumn('artist_name', '{{$artist}}')
             ->addColumn('revenue', '{{$revenue}}')
-            ->addColumn('report_date', fn ($data) => date('Y-m-d', strtotime($data->created_at)))
+            ->addColumn('report_date', fn ($data) => date('Y-m-d', strtotime($data->reporting_period)))
             ->rawColumns([
                 'artist_name',
                 'revenue',
