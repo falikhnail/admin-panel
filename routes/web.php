@@ -82,8 +82,10 @@ Route::group(
 
         // * users
         Route::get('users', 'UsersController@index')->name('users');
+        Route::get('create-user', 'UsersController@create')->name('create_user');
+        Route::post('save-user', 'UsersController@storeUser')->name('save_user');
         Route::get('users-list', 'UsersController@indexDataTable')->name('users_list');
-        Route::get('users-profile/{id}', 'UsersController@storeProfileUser')->name('users_profile');
+        Route::get('users-profile/{id}', 'UsersController@profileUser')->name('users_profile');
 
         Route::post('save-profile', 'UsersController@saveProfile')->name('save_profile');
         Route::post('save-bank-account', 'BankAccountController@saveBankAccount')->name('save_bank_account');
