@@ -66,7 +66,7 @@ class ReportChannelController extends Controller
             ->addColumn('channel_name', '{{$channel_name}}')
             //->addColumn('channel_id', '{{$channel_id}}')
             ->addColumn('revenue', '{{$revenue}}')
-            ->addColumn('report_date', fn ($data) => date('Y-m-d', strtotime($data->created_at)))
+            ->addColumn('report_date', fn ($data) => date('Y-m-d', strtotime($data->reporting_period)))
             ->rawColumns([
                 'label_name',
                 'channel_name',

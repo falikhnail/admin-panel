@@ -124,6 +124,8 @@ class ReportController extends Controller {
                 'upc' => $request->post('upc'),
                 'revenue' => $request->post('revenue'),
                 'channel_name' => $request->post('channel_name'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ]);
 
 
