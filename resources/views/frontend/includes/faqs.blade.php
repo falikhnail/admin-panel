@@ -81,7 +81,7 @@
                             <div id="faq-5" class="collapse mt-3">
                                 <span>
                                     Bisa, namun ada beberapa perjanjian yang tetap berlaku. Informasi lebih lanjut dapat
-                                    menghubungi kami di (+62)899333712
+                                    menghubungi kami di 0822-2000-2224
                                 </span>
                             </div>
                             <hr class="text-white">
@@ -194,14 +194,15 @@
                 <div class="row row-cols-1 ms-2 mt-3">
                     <div class="col">
                         <div class="d-flex flex-column">
-                            <a href="#faq-12" role="button" class="d-flex none" data-bs-toggle="collapse" data-bs-target="#faq-12" aria-expanded="false" aria-controls="faq-12">
+                            <a href="#faq-12" role="button" class="d-flex none" data-bs-toggle="collapse"
+                                data-bs-target="#faq-12" aria-expanded="false" aria-controls="faq-12">
                                 <i class="bi bi-caret-down-square"></i>
                                 <span class="ms-2"> Saya ada pertanyaan lain</span>
                             </a>
                             <div id="faq-12" class="collapse mt-3">
                                 <span>
                                     Jika anda memiliki pertanyaan lain, dapat klik disini atau menghubungi kami melalui
-                                    whatsapp di (+62) 813 1102 6860
+                                    whatsapp di 0822-2000-2224
                                 </span>
                             </div>
                             <hr class="text-white">

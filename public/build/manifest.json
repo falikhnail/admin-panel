@@ -2,28 +2,28 @@
   "_app-41e7cd70.js": {
     "file": "assets/app-41e7cd70.js"
   },
-  "_bootstrap.bundle.min-aa36eb42.js": {
+  "_bootstrap.bundle.min-b4289e88.js": {
     "css": [
-      "assets/bootstrap.bundle-e8367bfc.css"
+      "assets/bootstrap.bundle-267f129b.css"
     ],
-    "file": "assets/bootstrap.bundle.min-aa36eb42.js"
+    "file": "assets/bootstrap.bundle.min-b4289e88.js"
   },
   "bootstrap.bundle.css": {
-    "file": "assets/bootstrap.bundle-e8367bfc.css",
+    "file": "assets/bootstrap.bundle-267f129b.css",
     "src": "bootstrap.bundle.css"
   },
   "resources/js/auth.css": {
-    "file": "assets/auth-d35feec1.css",
+    "file": "assets/auth-f743f806.css",
     "src": "resources/js/auth.css"
   },
   "resources/js/auth.js": {
     "css": [
-      "assets/auth-d35feec1.css"
+      "assets/auth-f743f806.css"
     ],
-    "file": "assets/auth-547801d6.js",
+    "file": "assets/auth-8d73160d.js",
     "imports": [
       "_app-41e7cd70.js",
-      "_bootstrap.bundle.min-aa36eb42.js"
+      "_bootstrap.bundle.min-b4289e88.js"
     ],
     "isEntry": true,
     "src": "resources/js/auth.js"
@@ -50,22 +50,22 @@
     "css": [
       "assets/backend-85ad5dc3.css"
     ],
-    "file": "assets/backend-57b6c4e8.js",
+    "file": "assets/backend-bb92caee.js",
     "imports": [
-      "_bootstrap.bundle.min-aa36eb42.js"
+      "_bootstrap.bundle.min-b4289e88.js"
     ],
     "isEntry": true,
     "src": "resources/js/backend.js"
   },
   "resources/js/frontend.css": {
-    "file": "assets/frontend-7196ba25.css",
+    "file": "assets/frontend-728278d7.css",
     "src": "resources/js/frontend.css"
   },
   "resources/js/frontend.js": {
     "css": [
-      "assets/frontend-7196ba25.css"
+      "assets/frontend-728278d7.css"
     ],
-    "file": "assets/frontend-78a02fbb.js",
+    "file": "assets/frontend-b7123ec8.js",
     "imports": [
       "_app-41e7cd70.js"
     ],

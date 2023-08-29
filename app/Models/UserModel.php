@@ -24,7 +24,7 @@ class UserModel extends BaseModel {
     }
 
     public static function lastBalanceByUserId($userId) {
-        \DB::statement("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
+        \DB::statement("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
 
         $sql = "SELECT
                     u1.id as users_id,

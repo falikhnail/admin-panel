@@ -1,6 +1,6 @@
 {
-    "name": "super/aggregator",
-    "description": "super aggregator web app",
+    "name": "master/music",
+    "description": "master music app",
     "type": "project",
     "require": {
         "php": "^8.0.2",

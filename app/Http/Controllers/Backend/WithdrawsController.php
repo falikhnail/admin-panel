@@ -132,7 +132,7 @@ class WithdrawsController extends Controller {
         } catch (Throwable $e) {
             DB::rollBack();
 
-            \Log::warning('Error Withdraws, Error >>> ' . $e->getMessage());
+            Log::warning('Error Withdraws, Error >>> ' . $e->getMessage());
             Flash::error('Error Withdraws, Error >>> ' . $e->getMessage());
 
             return back()->withErrors([
@@ -162,7 +162,8 @@ class WithdrawsController extends Controller {
 
                 UserBalanceModel::query()->insert([
                     'users_id' => $withdraw->users_id,
-                    'debit' => $withdraw->amount,
+                    'kredit' => $withdraw->amount,
+                    'debit' => 0.0,
                     'balance' => $balance - (int)$withdraw->amount,
                     'keterangan' => 'withdraws',
                     'created_at' => Carbon::now(),

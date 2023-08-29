@@ -23,7 +23,7 @@ class UserBalanceModel extends BaseModel {
 
     public static function balanceAnalyticByUserId($userId) {
         $sql = "SELECT
-                    u2.balance as last_balance,
+                    balance.balance as last_balance,
                     u3.balance as last_1_month_balance,
                     u4.balance as last_2_month_balance,
                     u5.balance as last_3_month_balance,
@@ -66,33 +66,47 @@ class UserBalanceModel extends BaseModel {
                                             INNER JOIN ( SELECT MAX( id ) AS id, balance FROM users_balance GROUP BY users_id ) u2 ON u1.id = u2.id
                                         WHERE
                                             u1.users_id = '$userId'
+                    ) balance ON u1.id = balance.users_id
+                    LEFT JOIN (
+                                        SELECT
+                                            SUM(IFNULL(u1.debit, 0)) as balance,
+                                            u1.users_id,
+                                            u1.created_at
+                                        FROM
+                                            users_balance u1
+                                        WHERE
+                                            u1.users_id = '$userId'
+                                            AND MONTH ( created_at ) = MONTH (now())
                     ) u2 ON u1.id = u2.users_id
                     LEFT JOIN (
                                         SELECT
-                                            u1.*
+                                            SUM(IFNULL(u1.debit, 0)) as balance,
+                                            u1.users_id,
+                                            u1.created_at
                                         FROM
                                             users_balance u1
-                                            INNER JOIN ( SELECT max( id ) AS id FROM users_balance WHERE MONTH ( created_at ) = MONTH ( now()) - 1 GROUP BY users_id ) u2 ON u1.id = u2.id
                                         WHERE
                                             users_id = '$userId'
                                             AND MONTH ( created_at ) = MONTH (now()) - 1
                     ) u3 on u1.id = u3.users_id
                     LEFT JOIN (
                                         SELECT
-                                            u1.*
+                                            SUM(IFNULL(u1.debit, 0)) as balance,
+                                            u1.users_id,
+                                            u1.created_at
                                         FROM
                                             users_balance u1
-                                            INNER JOIN ( SELECT max( id ) AS id FROM users_balance WHERE MONTH ( created_at ) = MONTH ( now()) - 2 GROUP BY users_id ) u2 ON u1.id = u2.id
                                         WHERE
                                             users_id = '$userId'
                                             AND MONTH ( created_at ) = MONTH (now()) - 2
                     ) u4 on u1.id = u4.users_id
                     LEFT JOIN (
                                         SELECT
-                                            u1.*
+                                            SUM(IFNULL(u1.debit, 0)) as balance,
+                                            u1.users_id,
+                                            u1.created_at
                                         FROM
                                             users_balance u1
-                                            INNER JOIN ( SELECT max( id ) AS id FROM users_balance WHERE MONTH ( created_at ) = MONTH ( now()) - 3 GROUP BY users_id ) u2 ON u1.id = u2.id
                                         WHERE
                                             users_id = '$userId'
                                             AND MONTH ( created_at ) = MONTH (now()) - 3
@@ -108,10 +122,10 @@ class UserBalanceModel extends BaseModel {
         return [];
     }
 
-    public static function addRevenue($userId, $revenue){
+    public static function addRevenue($userId, $revenue) {
         $userData = UserModel::where('id', $userId)->first();
         Log::warning($userData);
-        
+
         if (!empty($userData)) {
             $lastBalanceUserData = UserBalanceModel::lastBalanceByUserId($userId);
             $lastBalanceUser = 0;
@@ -119,15 +133,16 @@ class UserBalanceModel extends BaseModel {
                 $lastBalanceUser = $lastBalanceUserData->balance;
             }
 
-            UserBalanceModel::query()->insert([
-                'users_id' => $userId,
-                'kredit' => (float) $revenue,
-                'debit' => 0.0,
-                'balance' => (float) $lastBalanceUser + (float) $revenue,
-                'keterangan' => 'revenue',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
-            ]);
+            UserBalanceModel::query()
+                ->insert([
+                    'users_id' => $userId,
+                    'kredit' => 0.0,
+                    'debit' => (float) $revenue,
+                    'balance' => (float) $lastBalanceUser + (float) $revenue,
+                    'keterangan' => 'revenue',
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]);
         }
     }
 }

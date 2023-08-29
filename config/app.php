@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost-starter.local'),
+    'url' => env('APP_URL', 'mastermusic.co.id'),
 
     'asset_url' => env('ASSET_URL'),
 
@@ -230,4 +230,5 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    'upload_path' => env('APP_ENV', 'production') == 'production' ? $_SERVER['DOCUMENT_ROOT'] : public_path(),
 ];

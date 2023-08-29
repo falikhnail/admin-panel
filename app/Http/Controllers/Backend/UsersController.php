@@ -95,7 +95,12 @@ class UsersController extends Controller {
             $file = $request->file('photo');
             $fileName = $clean($file->getClientOriginalName());
             $saveName = '/img/user/' . $fileName;
-            $destinationPath = public_path('/img/user');
+            if (strtolower(PHP_OS) == 'linux') {
+                $destinationPath = config('app.upload_path') . '/img/user';
+            } else {
+                $destinationPath = config('app.upload_path') . '\img\user';
+            }
+
 
             $file->move($destinationPath, $fileName);
 
@@ -141,15 +146,17 @@ class UsersController extends Controller {
     public function storeUser(Request $request) {
         DB::beginTransaction();
         try {
-            try{
+            try {
                 UserModel::query()->insert([
                     'nama' => $request->name,
                     'email' => $request->email,
                     'password' => $request->password_user,
-                    'tipe_user' => $request->user_type
+                    'tipe_user' => $request->user_type,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ]);
-            }catch(QueryException $e){
-                if($e->errorInfo[1] == 1062){
+            } catch (QueryException $e) {
+                if ($e->errorInfo[1] == 1062) {
                     throw new \Exception('User Already Exists');
                 }
             }
