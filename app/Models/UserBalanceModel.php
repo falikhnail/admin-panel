@@ -24,9 +24,9 @@ class UserBalanceModel extends BaseModel {
     public static function balanceAnalyticByUserId($userId) {
         $sql = "SELECT
                     balance.balance as last_balance,
-                    u3.balance as last_1_month_balance,
-                    u4.balance as last_2_month_balance,
-                    u5.balance as last_3_month_balance,
+                    u2.balance as last_1_month_balance,
+                    u3.balance as last_2_month_balance,
+                    u4.balance as last_3_month_balance,
                     -- percentage
                     IFNULL(CAST(((u2.balance - u3.balance) / u3.balance) * 100 AS DECIMAL(12, 2)), 0.0) as last_month_percentage,
                     IFNULL(CAST(((u3.balance - u4.balance) / u4.balance) * 100 AS DECIMAL(12, 2)), 0.0) as last_1_month_percentage,
@@ -113,7 +113,7 @@ class UserBalanceModel extends BaseModel {
                     ) u5 on u1.id = u5.users_id
                 WHERE
                     u1.id = '$userId'";
-
+        \Log::warning($sql);
         $query = DB::select($sql);
         if (count($query) > 0) {
             return $query[0];

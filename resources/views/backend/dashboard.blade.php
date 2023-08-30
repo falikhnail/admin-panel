@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-3 col-md-6">
+            <div class="col-xxl-3 col-md-6" id="3">
                 <div class="card info-card revenue-card">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -41,7 +41,7 @@
                                 <i class="bi bi-currency-dollar"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>{{ $lastBalance2Month }}</h6>
+                                <h6>{{ $lastBalance3Month }}</h6>
                                 <span class="text-muted small pt-1 fw-bold">{{ $lastBalance2MonthPercentage }}%</span>
                                 <span class="text-muted small pt-2 ps-1">{{ $info2LastMonth }}</span>
                             </div>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-3 col-xl-12">
+            <div class="col-xxl-3 col-xl-12" id="2">
                 <div class="card info-card customers-card">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -61,7 +61,7 @@
                                 <i class="bi bi-currency-dollar"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>{{ $lastBalance1Month }}</h6>
+                                <h6>{{ $lastBalance2Month }}</h6>
                                 <span class="text-muted small pt-1 fw-bold">{{ $lastBalance1MonthPercentage }}%</span>
                                 <span class="text-muted small pt-2 ps-1">{{ $info1LastMonth }}</span>
                             </div>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-3 col-xl-12">
+            <div class="col-xxl-3 col-xl-12" id="1">
                 <div class="card info-card customers-card">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -80,7 +80,7 @@
                                 <i class="bi bi-currency-dollar"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>{{ $lastBalance }}</h6>
+                                <h6>{{ $lastBalance1Month }}</h6>
                                 <span class="text-muted small pt-1 fw-bold">{{ $lastBalancePercentage }} %</span>
                                 <span class="text-muted small pt-2 ps-1">{{ $infoLastMonth }}</span>
                             </div>

@@ -21,13 +21,13 @@
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ asset('js/landing-page.js') }}"></script>
 
     @vite(['resources/js/frontend.js'])
 
     @stack('after-styles')
 
     @livewireStyles
-
 </head>
 
 <body>

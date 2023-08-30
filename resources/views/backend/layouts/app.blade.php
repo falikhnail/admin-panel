@@ -13,6 +13,8 @@
     @stack('before-styles')
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('lib/apexcharts/apexcharts.min.js') }}"></script>
+
     @vite('resources/js/backend.js')
 
     <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
@@ -20,6 +22,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+
+    <link href="{{ asset('lib/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" type="text/css" />
 
     @stack('after-styles')
 </head>

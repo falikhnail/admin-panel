@@ -13,14 +13,14 @@
     "src": "bootstrap.bundle.css"
   },
   "resources/js/auth.css": {
-    "file": "assets/auth-f743f806.css",
+    "file": "assets/auth-3a29961b.css",
     "src": "resources/js/auth.css"
   },
   "resources/js/auth.js": {
     "css": [
-      "assets/auth-f743f806.css"
+      "assets/auth-3a29961b.css"
     ],
-    "file": "assets/auth-8d73160d.js",
+    "file": "assets/auth-7b41b136.js",
     "imports": [
       "_app-41e7cd70.js",
       "_bootstrap.bundle.min-b4289e88.js"
@@ -29,13 +29,11 @@
     "src": "resources/js/auth.js"
   },
   "resources/js/backend.css": {
-    "file": "assets/backend-85ad5dc3.css",
+    "file": "assets/backend-9fadbaa1.css",
     "src": "resources/js/backend.css"
   },
   "resources/js/backend.js": {
     "assets": [
-      "assets/bootstrap-icons-966620f9.woff2",
-      "assets/bootstrap-icons-c6569d46.woff",
       "assets/boxicons-c23887bb.eot",
       "assets/boxicons-4b87cbc7.woff2",
       "assets/boxicons-d5d511cf.woff",
@@ -48,9 +46,9 @@
       "assets/remixicon-a10268fe.svg"
     ],
     "css": [
-      "assets/backend-85ad5dc3.css"
+      "assets/backend-9fadbaa1.css"
     ],
-    "file": "assets/backend-bb92caee.js",
+    "file": "assets/backend-d228bb75.js",
     "imports": [
       "_bootstrap.bundle.min-b4289e88.js"
     ],
@@ -65,20 +63,12 @@
     "css": [
       "assets/frontend-728278d7.css"
     ],
-    "file": "assets/frontend-b7123ec8.js",
+    "file": "assets/frontend-c5d6b2c1.js",
     "imports": [
       "_app-41e7cd70.js"
     ],
     "isEntry": true,
     "src": "resources/js/frontend.js"
-  },
-  "resources/lib/bootstrap-icons/fonts/bootstrap-icons.woff": {
-    "file": "assets/bootstrap-icons-c6569d46.woff",
-    "src": "resources/lib/bootstrap-icons/fonts/bootstrap-icons.woff"
-  },
-  "resources/lib/bootstrap-icons/fonts/bootstrap-icons.woff2": {
-    "file": "assets/bootstrap-icons-966620f9.woff2",
-    "src": "resources/lib/bootstrap-icons/fonts/bootstrap-icons.woff2"
   },
   "resources/lib/boxicons/fonts/boxicons.eot": {
     "file": "assets/boxicons-c23887bb.eot",
