@@ -14,14 +14,12 @@ use Maatwebsite\Excel\Concerns\ToArray;
 use Session;
 use Throwable;
 
-class GeneralReportImport implements ToArray {
-
+class GeneralReportImport implements ToArray
+{
     private $userSession;
-    private $userIdSelected;
 
     private $headerKeys = [
         'no',
-        'reporting_period',
         'platform',
         'label_name',
         'channel_name',
@@ -31,17 +29,23 @@ class GeneralReportImport implements ToArray {
         'isrc',
         'upc',
         'revenue',
+        'quantity',
+        'sales_type'
     ];
 
-    public function __construct($userIdSelected) {
+    public function __construct(
+        public string $userIdSelected,
+        public string $reportingDate,
+        public string $releaseDate = ''
+    ) {
         $this->userSession = Session::get(SessionKeyModel::USER_LOGIN);
-        $this->userIdSelected = $userIdSelected;
     }
 
     /**
      * @param array $array
      */
-    public function array(array $array) {
+    public function array(array $array)
+    {
         try {
             foreach ($array as $key => $values) {
                 if ($key === 0) {
@@ -51,8 +55,8 @@ class GeneralReportImport implements ToArray {
                     }
                 } else {
                     $platformId = 0;
-                    if (!empty($values[2])) {
-                        $platform = PlatformsModel::whereRaw("name = '$values[2]' or name like '%$values[2]%'")->first();
+                    if (!empty($values[1])) {
+                        $platform = PlatformsModel::whereRaw("name = '$values[1]' or name like '%$values[1]%'")->first();
 
                         if (!empty($platform)) {
                             $platformId = $platform->id;
@@ -64,28 +68,28 @@ class GeneralReportImport implements ToArray {
                         continue;
                     }
 
-                    $reportingPeriod = !empty($values[1]) ? date('Y-m-d', strtotime($values[1])) : null;
-                    $revenue = (float)$values[10];
-
                     $data = [
                         'users_id' => $this->userIdSelected,
-                        'reporting_period' => $reportingPeriod,
+                        'reporting_period' => $this->reportingDate,
                         'platform_id' => $platformId,
-                        'label_name' => $values[3] ?: null,
-                        'channel_name' => $values[4] ?: null,
-                        'artist' => $values[5] ?: null,
-                        'album' => $values[6] ?: null,
-                        'title' => $values[7] ?: null,
-                        'isrc' => $values[8] ?: null,
-                        'upc' => $values[9] ?: null,
-                        'revenue' => $revenue  ?: null,
+                        'label_name' => $values[2] ?: null,
+                        'channel_name' => $values[3] ?: null,
+                        'artist' => $values[4] ?: null,
+                        'album' => $values[5] ?: null,
+                        'title' => $values[6] ?: null,
+                        'isrc' => $values[7] ?: null,
+                        'upc' => $values[8] ?: null,
+                        'revenue' => ((float)$values[9]) ?: null,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
+                        'release_date' => $this->releaseDate(),
+                        'quantity' => $values[10] ?: null,
+                        'sales_type' => $values[11] ?: null,
                     ];
 
                     ReportGeneralModel::query()->insert($data);
 
-                    UserBalanceModel::addRevenue($this->userIdSelected, $revenue);
+                    UserBalanceModel::addRevenue($this->userIdSelected, ((float)$values[9]) ?: null);
                 }
             }
         } catch (Throwable $e) {
@@ -94,7 +98,8 @@ class GeneralReportImport implements ToArray {
         }
     }
 
-    private function validateHeaderWithRowNumber($headers) {
+    private function validateHeaderWithRowNumber($headers)
+    {
         $message = [];
         foreach ($headers as $key => $value) {
             $header = $value;
@@ -102,7 +107,7 @@ class GeneralReportImport implements ToArray {
                 $message[] = 'Posisikan Cell Header No Sesusai Template Upload';
             }
             if ($key === 1 && $header !== $this->headerKeys[1]) {
-                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[1] . ' Part Sesusai Template Upload';
+                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[1] . ' Sesusai Template Upload';
             }
             if ($key === 2 && $header !== $this->headerKeys[2]) {
                 $message[] = 'Posisikan Cell Header ' . $this->headerKeys[2] . ' Sesusai Template Upload';
@@ -131,8 +136,26 @@ class GeneralReportImport implements ToArray {
             if ($key === 10 && $header !== $this->headerKeys[10]) {
                 $message[] = 'Posisikan Cell Header ' . $this->headerKeys[10] . ' Sesusai Template Upload';
             }
+            if ($key === 11 && $header !== $this->headerKeys[11]) {
+                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[11] . ' Sesusai Template Upload';
+            }
+            /* if ($key === 10 && $header !== $this->headerKeys[10]) {
+                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[10] . ' Sesusai Template Upload';
+            } */
         }
 
         return count($message) > 0 ? implode("\n", $message) : null;
+    }
+
+    private function releaseDate()
+    {
+        $current_day = (int)date('j');
+        if ($current_day < 10) {
+            $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of this month')));
+        } else {
+            $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of next month')));
+        }
+
+        return $firstDayNextMonth;
     }
 }

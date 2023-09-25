@@ -12,5 +12,4 @@ class ReportGeneralModel extends BaseModel {
 
     protected $fillable = [];
 
-    
 }

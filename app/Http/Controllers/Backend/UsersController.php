@@ -23,10 +23,13 @@ class UsersController extends Controller {
 
     public function indexDataTable(Request $request) {
         $user = UserModel::query()->where('tipe_user', 'user');
-        $searchName = $request->search['value'];
+        $searchName = $request->get('searchName');
+
         if (!empty($searchName)) {
             $user->whereRaw("nama like '%$searchName%'");
         }
+
+        \Log::warning($user->toSql());
 
         $dataTable = DataTables::of($user->get())
             ->addIndexColumn()

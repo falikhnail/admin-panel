@@ -61,9 +61,10 @@ class ReportController extends Controller {
             ->selectRaw("platforms.name as platform");
 
         if ($userSession->tipe_user === 'user') {
-            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id))";
+            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id)) ";
+            $sqlReleaseUser = "and (is_release = 1) ";
             //Log::info($generalReport->whereRaw($sqlUser)->toSql());
-            $generalData = $generalReport->whereRaw($sqlUser)->get();
+            $generalData = $generalReport->whereRaw($sqlUser . $sqlReleaseUser)->get();
         } else {
             $generalData = $generalReport->get();
         }
@@ -83,6 +84,8 @@ class ReportController extends Controller {
             ->addColumn('isrc', '<strong>{{$isrc}}</strong>')
             ->addColumn('upc', '<strong>{{$upc}}</strong>')
             ->addColumn('revenue', '<strong>{{$revenue}}</strong>')
+            ->addColumn('quantity', '<strong>{{$quantity}}</strong>')
+            ->addColumn('sales_type', '<strong>{{$sales_type}}</strong>')
             ->rawColumns([
                 'reporting_period',
                 'platform',
@@ -92,7 +95,9 @@ class ReportController extends Controller {
                 'title',
                 'isrc',
                 'upc',
-                'revenue'
+                'revenue',
+                'quantity',
+                'sales_type'
             ]);
 
 
@@ -124,6 +129,10 @@ class ReportController extends Controller {
                 'upc' => $request->post('upc'),
                 'revenue' => $request->post('revenue'),
                 'channel_name' => $request->post('channel_name'),
+                'quantity' => $request->post('quantity'),
+                'sales_type' => $request->post('sales_type'),
+                'is_release' => 0,
+                'release_date' => $this->releaseDate(),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
@@ -153,7 +162,10 @@ class ReportController extends Controller {
         try {
             $file = $request->file('upload_file');
 
-            Excel::import(new GeneralReportImport($request->user_id), $file);
+            Excel::import(new GeneralReportImport(
+                $request->user_id,
+                $request->reporting_period,
+            ), $file);
 
             Flash::success('File Berhasil di Import');
         } catch (Throwable $e) {
@@ -161,5 +173,16 @@ class ReportController extends Controller {
         }
 
         return back();
+    }
+
+    private function releaseDate() {
+        $current_day = (int)date('j');
+        if ($current_day < 10) {
+            $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of this month')));
+        } else {
+            $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of next month')));
+        }
+
+        return $firstDayNextMonth;
     }
 }

@@ -16,6 +16,12 @@
     <li class="breadcrumb-item active">Tambah</li>
 @endsection
 
+@push('after-styles')
+    .gj-datepicker{
+    height: 20px !important;
+    }
+@endpush
+
 @section('content')
     <?php $data = []; ?>
     <div class="row">
@@ -133,6 +139,22 @@
                                                 Please Fill Revenue
                                             </div>
                                         </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control number" id="quantity"
+                                                placeholder="Type Quantity" name="quantity" required>
+                                            <label for="quantity">Quantity</label>
+                                            <div class="invalid-feedback">
+                                                Please Fill Quantity
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="salesType"
+                                                placeholder="Type Quantity" name="sales_type" required>
+                                            <label for="salesType">Sales Type</label>
+                                            <div class="invalid-feedback">
+                                                Please Fill Sales Type
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="divider my-4"></div>
@@ -150,5 +172,9 @@
 @endsection
 
 @push('after-scripts')
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#reporting_period").css('padding', '15px')
+        })
+    </script>
 @endpush

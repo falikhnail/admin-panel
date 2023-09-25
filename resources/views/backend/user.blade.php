@@ -21,13 +21,20 @@
                         Users
                     </div>
                     <div class="row my-5">
-                        <div class="col-xs-12 col-md-12 col-lg-12">
+                        <div class="col-xs-6 col-md-6 col-lg-6">
                             <div class="float-start">
                                 @if ($userSession->tipe_user === 'admin')
                                     <a href="{{ route('backend.create_user') }}" class="btn-act btn-act-primary btn-act-md">
                                         <i class="bi bi-plus-circle"></i>
                                         Add
                                     </a>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6 col-lg-6">
+                            <div class="float-end">
+                                @if ($userSession->tipe_user === 'admin')
+                                    <livewire:search-user />
                                 @endif
                             </div>
                         </div>
@@ -74,7 +81,7 @@
             ajax: {
                 url: '{{ route('backend.users_list') }}',
                 data: function(d) {
-
+                    d.searchName = $("#searchName").val()
                 }
             },
             columns: [{
@@ -103,6 +110,19 @@
             ],
             ordering: false,
             lengthChange: false,
+        });
+
+        $('#searchName').change(function() {
+            table.draw();
+        });
+
+        $('#searchName').keypress(function(e) {
+            var key = e.which;
+            if (key == 13) // the enter key code
+            {
+                $('#searchName').trigger('change');
+                return false;
+            }
         });
     </script>
 @endpush

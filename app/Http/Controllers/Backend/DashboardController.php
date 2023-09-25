@@ -27,17 +27,17 @@ class DashboardController extends Controller
             $lastBalance2Month = !empty($balance) ? format_usd($balance->last_2_month_balance) : 0;
             $lastBalance3Month = !empty($balance) ? format_usd($balance->last_3_month_balance) : 0;
 
-            $lastBalancePercentage = !empty($balance) ? $balance->last_month_percentage : 0;
-            $lastBalance1MonthPercentage = !empty($balance) ? $balance->last_1_month_percentage : 0;
-            $lastBalance2MonthPercentage = !empty($balance) ? $balance->last_2_month_percentage : 0;
+            $lastBalancePercentage = !empty($balance) ? $balance->last_1_month_percentage : 0;
+            $lastBalance1MonthPercentage = !empty($balance) ? $balance->last_2_month_percentage : 0;
+            $lastBalance2MonthPercentage = !empty($balance) ? $balance->last_3_month_percentage : 0;
 
-            $lastMonthName = !empty($balance) ? $balance->last_monthname : '';
-            $last1MonthName = !empty($balance) ? $balance->last_1_monthname : '';
-            $last2MonthName = !empty($balance) ? $balance->last_2_monthname : '';
+            $lastMonthName = !empty($balance) ? $balance->last_1_monthname : '';
+            $last1MonthName = !empty($balance) ? $balance->last_2_monthname : '';
+            $last2MonthName = !empty($balance) ? $balance->last_3_monthname : '';
 
-            $infoLastMonth = !empty($balance) ? $balance->info_last_month : '';
-            $info1LastMonth = !empty($balance) ? $balance->info_last_1_month : '';
-            $info2LastMonth = !empty($balance) ? $balance->info_last_2_month : '';
+            $infoLastMonth = !empty($balance) ? $balance->info_last_1_month : '';
+            $info1LastMonth = !empty($balance) ? $balance->info_last_2_month : '';
+            $info2LastMonth = !empty($balance) ? $balance->info_last_3_month : '';
         } else {
             $balance = WithdrawModel::monthlyDashboard();
 

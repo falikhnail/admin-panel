@@ -14,19 +14,37 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-floating mb-3">
-                                <select class="form-control" id="user" name="user_id" required>
+                            <div class="form-group mb-3">
+                                <label for="user">User</label>
+                                <select class="form-select" id="user" name="user_id" required>
                                     <option value="" disabled selected>Pilih User</option>
                                     @foreach ($user as $u)
                                         <option value="{{ $u->id }}">{{ $u->nama }}</option>
                                     @endforeach
                                 </select>
-                                <label for="user">User</label>
                                 <div class="invalid-feedback">
                                     Please Select User
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="reporting_period" name="reporting_period"
+                                    placeholder="Masukkan Reporting Period Date" required>
+                                <div class="invalid-feedback">
+                                    Please Fill Reporting Period
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="col-md-12">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="release_date" name="release_date"
+                                    placeholder="Masukkan Release Date" required>
+                                <div class="invalid-feedback">
+                                    Please Fill Schedule
+                                </div>
+                            </div>
+                        </div> --}}
                         <div class="col-md-12">
                             <div class="form-control mb-3">
                                 <input type="file" class="form-control" name="upload_file" id="upload_file" required>

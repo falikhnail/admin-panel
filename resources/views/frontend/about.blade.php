@@ -232,8 +232,9 @@
         </div>
     </section>
     <section class="page-section-grey">
+        <h2 class="text-center w-100 me-3" style="width: 40%;">Our Platform</h2>
+        <hr class="divider" />
         <div class="d-flex align-items-center justify-content-center">
-            <h2 class="text-center w-100 me-3" style="width: 40%;">Our Platform</h2>
             <div class="slideshow">
                 <div class="move">
                     <div class="d-flex align-items-center">
@@ -253,6 +254,27 @@
                         <a href="#" class="me-5">
                             <img src="{{ asset('img/logo/Spotify_Logo_RGB_Green-300x90.png') }}" alt=""
                                 width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/ig-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/fb-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/tiktok-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/soundcloud-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/pandora-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/tidal-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/more-300x200.png') }}" alt="" width="150">
                         </a>
                     </div>
                 </div>
@@ -274,6 +296,27 @@
                         <a href="#" class="me-5">
                             <img src="{{ asset('img/logo/Spotify_Logo_RGB_Green-300x90.png') }}" alt=""
                                 width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/ig-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/fb-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/tiktok-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/soundcloud-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/pandora-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/tidal-300x200.png') }}" alt="" width="150">
+                        </a>
+                        <a href="#" class="me-5">
+                            <img src="{{ asset('img/logo/more-300x200.png') }}" alt="" width="150">
                         </a>
                     </div>
                 </div>

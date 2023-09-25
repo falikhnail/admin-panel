@@ -117,6 +117,15 @@ class WithdrawsController extends Controller {
                 return back();
             }
 
+
+            $pendingData = WithdrawModel::query()
+                ->where('users_id', $request->userId)
+                ->where('status', 'pending')
+                ->count();
+            if ($pendingData > 0) {
+                throw new \Exception("Can't add new withdraws request, please wait previous withdraws approve by admin");
+            }
+
             WithdrawModel::query()->insert([
                 'users_id' => $request->userId,
                 'amount' => $request->amount,
@@ -132,8 +141,8 @@ class WithdrawsController extends Controller {
         } catch (Throwable $e) {
             DB::rollBack();
 
-            Log::warning('Error Withdraws, Error >>> ' . $e->getMessage());
-            Flash::error('Error Withdraws, Error >>> ' . $e->getMessage());
+            //Log::warning('Error Withdraws, Error >>> ' . $e->getMessage());
+            Flash::error($e->getMessage());
 
             return back()->withErrors([
                 'reopenModal' => true
@@ -191,7 +200,7 @@ class WithdrawsController extends Controller {
         $withdraws = WithdrawModel::invoiceWithdrawsById($id);
         $currency = $this->currencyConverter();
         $finalCurrency = count($currency) > 0 && array_key_exists('idr', $currency) ?  $currency['idr'] : 0;
-        if($finalCurrency > 0){
+        if ($finalCurrency > 0) {
             $finalCurrency -= 200;
         }
 

@@ -11,7 +11,7 @@
     <title>@yield('title') | {{ config('app.name') }}</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap">
-    <link href="{{ asset('css/auth.css') }}" rel="stylesheet" type="text/css" />
+    {{-- <link href="{{ asset('css/auth.css') }}" rel="stylesheet" type="text/css" /> --}}
 
     @stack('before-styles')
 

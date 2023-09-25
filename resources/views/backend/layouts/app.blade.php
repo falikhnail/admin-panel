@@ -23,6 +23,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <link href="{{ asset('lib/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" type="text/css" />
 
     @stack('after-styles')
@@ -68,6 +72,10 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            $('meta[name="viewport"]').prop('content', 'width=1440');
+
+            $('.select2').select2();
+
             $('.datepicker').datepicker({
                 uiLibrary: 'bootstrap5',
                 format: 'yyyy-mm-dd'

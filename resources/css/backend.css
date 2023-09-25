@@ -1217,7 +1217,11 @@ h6 {
 }
 
 .logo {
-    
+
     margin: 0;
     padding: 0;
+}
+
+.drop {
+    z-index: 1060;
 }

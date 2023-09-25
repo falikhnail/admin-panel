@@ -85,6 +85,8 @@
                                         <th>ISRC</th>
                                         <th>UPC</th>
                                         <th>Revenue</th>
+                                        <th>Quantity</th>
+                                        <th>Sales Type</th>
                                         <!-- 10 rows -->
                                     </tr>
                                 </thead>
@@ -102,6 +104,21 @@
 @push('after-scripts')
     <script type="text/javascript" src="{{ asset('vendor/datatable/datatables.min.js') }}"></script>
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#reporting_period").datepicker({
+                uiLibrary: 'bootstrap5',
+                format: 'yyyy-mm-dd'
+            })
+
+            // * modal component
+            $("#user").select2({
+                dropdownParent: $('#m_upload_general'),
+                placeholder: 'Search User',
+                width: '100%',
+                theme: 'bootstrap-5',
+            })
+        })
+
         let table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -162,6 +179,14 @@
                 {
                     data: 'revenue',
                     name: 'revenue',
+                },
+                {
+                    data: 'quantity',
+                    name: 'quantity',
+                },
+                {
+                    data: 'sales_type',
+                    name: 'sales_type',
                 },
             ],
             ordering: false,

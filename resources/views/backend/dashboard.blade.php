@@ -111,9 +111,9 @@
                 var options = {
                     series: [{
                         name: 'Income',
-                        data: [{{ formatOnlyNumber($lastBalance2Month) }},
-                            {{ formatOnlyNumber($lastBalance1Month) }},
-                            {{ formatOnlyNumber($lastBalance) }}, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                        data: [{{ formatOnlyNumber($lastBalance3Month) }},
+                            {{ formatOnlyNumber($lastBalance2Month) }},
+                            {{ formatOnlyNumber($lastBalance1Month) }}, 0, 0, 0, 0, 0, 0, 0, 0, 0
                         ]
                     }],
                     chart: {

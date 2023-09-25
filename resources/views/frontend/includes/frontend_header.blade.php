@@ -17,6 +17,9 @@
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                 <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
+                <li class="nav-item d-sm-none d-md-none d-inline">
+                    <a class="btn btn-primary btn-xl" href="#footer">Login</a>
+                </li>
             </ul>
         </div>
         <a class="btn btn-primary btn-xl d-none d-sm-inline"

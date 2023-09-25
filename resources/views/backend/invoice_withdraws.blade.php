@@ -316,7 +316,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="card-footer">
+                        {{-- <div class="card-footer">
                             <strong>Withdraw Notes</strong>
                             <ul>
                                 <li>
@@ -327,7 +327,7 @@
                                     dan 2.5% untuk yang punya NPWP
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

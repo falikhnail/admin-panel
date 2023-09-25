@@ -4,22 +4,20 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\SessionKeyModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
 
-class FrontendController extends Controller
-{
-    public function __construct(Request $request)
-    {
+class FrontendController extends Controller {
+    public function __construct(Request $request) {
         parent::__construct();
     }
 
-    public function index()
-    {
+    public function index() {
         return view('frontend.index');
     }
 
-    public function about(){
+    public function about() {
         return view('frontend.about');
     }
 }
