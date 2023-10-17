@@ -48,7 +48,9 @@ class ReportController extends Controller {
         $accountingPeriod = $request->get('accountringPeriod');
 
         $generalReport = ReportGeneralModel::query()
-            ->leftJoin('platforms', 'report_general.platform_id', '=', 'platforms.id');
+            ->leftJoin('platforms', 'report_general.platform_id', '=', 'platforms.id')
+            ->orderBy('report_general.reporting_period', 'desc');
+
         if (!empty($accountingPeriod)) {
             $generalReport->where('report_general.reporting_period', $accountingPeriod);
         }
@@ -62,7 +64,7 @@ class ReportController extends Controller {
 
         if ($userSession->tipe_user === 'user') {
             $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id)) ";
-            $sqlReleaseUser = "and (is_release = 1) ";
+            $sqlReleaseUser = "and (report_general.is_release = 1) ";
             //Log::info($generalReport->whereRaw($sqlUser)->toSql());
             $generalData = $generalReport->whereRaw($sqlUser . $sqlReleaseUser)->get();
         } else {

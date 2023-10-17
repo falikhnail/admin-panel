@@ -42,9 +42,9 @@ class DashboardController extends Controller
             $balance = WithdrawModel::monthlyDashboard();
 
             $lastBalance = !empty($balance) ? format_usd($balance->last_month_wd) : 0;
-            $lastBalance1Month = !empty($balance) ? format_usd($balance->last_1_month_wd) : 0;
-            $lastBalance2Month = !empty($balance) ? format_usd($balance->last_2_month_wd) : 0;
-            $lastBalance3Month = !empty($balance) ? format_usd($balance->last_3_month_wd) : 0;
+            $lastBalance1Month = !empty($balance) ? format_usd($balance->last_month_wd) : 0;
+            $lastBalance2Month = !empty($balance) ? format_usd($balance->last_1_month_wd) : 0;
+            $lastBalance3Month = !empty($balance) ? format_usd($balance->last_2_month_wd) : 0;
 
             $lastBalancePercentage = !empty($balance) ? $balance->last_month_percentage : 0;
             $lastBalance1MonthPercentage = !empty($balance) ? $balance->last_1_month_percentage : 0;

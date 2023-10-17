@@ -38,7 +38,7 @@ class WithdrawsController extends Controller {
     }
 
     public function indexDataTable(Request $request) {
-        $withdraws = WithdrawModel::query();
+        $withdraws = WithdrawModel::query()->orderBy('withdraws.request_date', 'desc');
         if ($this->userSession->tipe_user === 'user') {
             $withdraws->where('users_id', $this->userSession->id);
         }
@@ -130,6 +130,7 @@ class WithdrawsController extends Controller {
                 'users_id' => $request->userId,
                 'amount' => $request->amount,
                 'request_date' => Carbon::now(),
+                'updated_at' => Carbon::now(),
                 'status' => 'pending'
             ]);
 
@@ -162,7 +163,8 @@ class WithdrawsController extends Controller {
 
             $status = $request->status;
             WithdrawModel::byId($request->withdrawId)->update([
-                'status' => $status
+                'status' => $status,
+                'updated_at' => Carbon::now(),
             ]);
 
             if ($status === 'approved') {

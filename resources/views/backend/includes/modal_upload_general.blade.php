@@ -10,7 +10,7 @@
                 </div>
                 <div class="modal-body">
                     <h6 class="mb-3">Pastikan Format Upload Sesuai <a class="link-danger"
-                            href="{{ asset('template/template_general.xlsx') }}">Template</a></h6>
+                            href="{{ asset('template/template_report_general.xlsx') }}">Template</a></h6>
 
                     <div class="row">
                         <div class="col-md-12">

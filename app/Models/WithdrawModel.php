@@ -58,7 +58,7 @@ class WithdrawModel extends BaseModel {
                     (
                         SELECT
                             sum( amount ) AS last_1_month_wd,
-                            MONTHNAME(request_date) as last_1_month_name
+                            IFNULL(MONTHNAME(request_date), MONTHNAME(NOW() - INTERVAL 1 MONTH)) as last_1_month_name
                         FROM
                             withdraws
                         WHERE
@@ -68,7 +68,7 @@ class WithdrawModel extends BaseModel {
                     (
                         SELECT
                             sum( amount ) AS last_2_month_wd,
-                            MONTHNAME(request_date) as last_2_month_name
+                            IFNULL(MONTHNAME(request_date), MONTHNAME(NOW() - INTERVAL 2 MONTH)) as last_2_month_name
                         FROM
                             withdraws
                         WHERE
@@ -78,7 +78,7 @@ class WithdrawModel extends BaseModel {
                     (
                         SELECT
                             sum( amount ) AS last_3_month_wd,
-                            MONTHNAME(request_date) as last_3_month_name
+                            IFNULL(MONTHNAME(request_date), MONTHNAME(NOW() - INTERVAL 3 MONTH)) as last_3_month_name
                         FROM
                             withdraws
                         WHERE

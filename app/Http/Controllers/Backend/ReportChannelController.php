@@ -44,7 +44,7 @@ class ReportChannelController extends Controller
         // * filter
         $reportDate = $request->get('reportDate');
 
-        $generalReport = ReportGeneralModel::query();
+        $generalReport = ReportGeneralModel::query()->orderBy('report_general.reporting_period', 'desc');
         if (!empty($reportDate)) {
             $generalReport->whereRaw("DATE(report_general.created_at) = '$reportDate'");
         }
@@ -52,9 +52,11 @@ class ReportChannelController extends Controller
         $generalReport = $generalReport->select('report_general.*');
 
         if ($userSession->tipe_user === 'user') {
-            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id))";
+            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id)) ";
+            $sqlReleaseUser = "and (is_release = 1)";
+
             //Log::info($generalReport->whereRaw($sqlUser)->toSql());
-            $generalData = $generalReport->whereRaw($sqlUser)->get();
+            $generalData = $generalReport->whereRaw($sqlUser . $sqlReleaseUser)->get();
         } else {
             $generalData = $generalReport->get();
         }
@@ -84,54 +86,5 @@ class ReportChannelController extends Controller
         }
 
         return $dataTable->make(true);
-    }
-
-    public function store(Request $request) {
-        //\Log::warning('request ', $request->all());
-
-        DB::beginTransaction();
-        try {
-            $userId = $request->post('user_id');
-            ReportChannelModel::query()->insert([
-                'users_id' => $userId,
-                'label_name' => $request->post('label_name'),
-                'channel_name' => $request->post('channel_name'),
-                'channel_id' => $request->post('channel_id'),
-                'revenue' => $request->post('revenue'),
-            ]);
-
-
-            UserBalanceModel::addRevenue($userId, $request->post('revenue'));
-
-            Flash::success('Berhasil Menambahkan Data');
-
-            DB::commit();
-
-            return redirect('control/report-general');
-        } catch (Throwable $e) {
-            DB::rollBack();
-
-            Flash::error('Gagal Menambahkan Data, Error >>> ' . $e->getMessage());
-
-            return redirect()->back();
-        }
-    }
-
-    public function export(Request $request) {
-        return Excel::download(new GeneralReportExport, 'Report Channel.xlsx');
-    }
-
-    public function import(Request $request) {
-        try {
-            $file = $request->file('upload_file');
-
-            Excel::import(new GeneralReportImport($request->user_id), $file);
-
-            Flash::success('File Berhasil di Import');
-        } catch (Throwable $e) {
-            Flash::error('Error Upload >>> ' . $e->getMessage());
-        }
-
-        return back();
     }
 }

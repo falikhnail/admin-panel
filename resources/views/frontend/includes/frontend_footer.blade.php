@@ -41,7 +41,7 @@
                         </div>
                         <div class="d-flex align-items-center mt-3">
                             <i class="bi bi-envelope me-2"></i>
-                            Mastermusicoffice@gmail.com
+                            Admin@mastermusic.co.id
                         </div>
                         <p class="mt-3">
                             <a href="#" class="none text-black">

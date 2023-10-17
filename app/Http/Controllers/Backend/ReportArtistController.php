@@ -43,7 +43,7 @@ class ReportArtistController extends Controller {
         // * filter
         $reportDate = $request->get('reportDate');
 
-        $report = ReportGeneralModel::query();
+        $report = ReportGeneralModel::query()->orderBy('report_general.reporting_period', 'desc');
         if (!empty($reportDate)) {
             $report->whereRaw("DATE(report_general.created_at) = '$reportDate'");
         }
@@ -52,9 +52,10 @@ class ReportArtistController extends Controller {
             ->select('report_general.*');
 
         if ($userSession->tipe_user === 'user') {
-            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id))";
+            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id)) ";
+            $sqlReleaseUser = "and (is_release = 1)";
             //Log::info($report->whereRaw($sqlUser)->toSql());
-            $generalData = $report->whereRaw($sqlUser)->get();
+            $generalData = $report->whereRaw($sqlUser . $sqlReleaseUser)->get();
         } else {
             $generalData = $report->get();
         }
@@ -80,53 +81,5 @@ class ReportArtistController extends Controller {
         }
 
         return $dataTable->make(true);
-    }
-
-    public function store(Request $request) {
-        //\Log::warning('request ', $request->all());
-
-        DB::beginTransaction();
-        try {
-            $userId = $request->post('user_id');
-
-            ReportArtistModel::query()->insert([
-                'user_id' => $userId,
-                'artist_name' => $request->post('artist_name'),
-                'revenue' => $request->post('revenue'),
-            ]);
-
-
-            UserBalanceModel::addRevenue($userId, $request->post('revenue'));
-
-            Flash::success('Berhasil Menambahkan Data');
-
-            DB::commit();
-
-            return redirect('control/report-general');
-        } catch (Throwable $e) {
-            DB::rollBack();
-
-            Flash::error('Gagal Menambahkan Data, Error >>> ' . $e->getMessage());
-
-            return redirect()->back();
-        }
-    }
-
-    public function export(Request $request) {
-        return Excel::download(new GeneralReportExport, 'Report Artist.xlsx');
-    }
-
-    public function import(Request $request) {
-        try {
-            $file = $request->file('upload_file');
-
-            Excel::import(new GeneralReportImport($request->user_id), $file);
-
-            Flash::success('File Berhasil di Import');
-        } catch (Throwable $e) {
-            Flash::error('Error Upload >>> ' . $e->getMessage());
-        }
-
-        return back();
     }
 }
