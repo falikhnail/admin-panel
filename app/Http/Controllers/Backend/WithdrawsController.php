@@ -200,6 +200,7 @@ class WithdrawsController extends Controller {
 
     public function invoiceWithdraws($id) {
         $withdraws = WithdrawModel::invoiceWithdrawsById($id);
+        $invNumb = date('dmy', strtotime($withdraws->request_date)) . "-$id";
         $currency = $this->currencyConverter();
         $finalCurrency = count($currency) > 0 && array_key_exists('idr', $currency) ?  $currency['idr'] : 0;
         if ($finalCurrency > 0) {
@@ -208,7 +209,8 @@ class WithdrawsController extends Controller {
 
         return view('backend.invoice_withdraws', compact(
             'withdraws',
-            'finalCurrency'
+            'finalCurrency',
+            'invNumb'
         ));
     }
 

@@ -2,39 +2,16 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Exports\GeneralReportExport;
 use App\Http\Controllers\Controller;
-use App\Imports\GeneralReportImport;
-use App\Models\PlatformsModel;
-use App\Models\ReportArtistModel;
 use App\Models\ReportGeneralModel;
 use App\Models\SessionKeyModel;
-use App\Models\UserBalanceModel;
-use App\Models\UserModel;
-use DB;
-use Flash;
 use Illuminate\Http\Request;
-use Log;
-use Maatwebsite\Excel\Facades\Excel;
-use Throwable;
 use Yajra\DataTables\DataTables;
 
-class ReportArtistController extends Controller {
+class ReportPlatformController extends Controller {
 
     public function index() {
-        $user = UserModel::allUser();
-
-        return view('backend.report_artist', compact(
-            'user'
-        ));
-    }
-
-    public function create() {
-        $user = UserModel::allUser();
-
-        return view('backend.add_report_artist', compact(
-            'user',
-        ));
+        return view('backend.report_platform');
     }
 
     public function indexDataTable(Request $request) {
@@ -44,6 +21,7 @@ class ReportArtistController extends Controller {
         $reportDate = $request->get('reportDate');
 
         $report = ReportGeneralModel::query()
+            ->leftJoin('platforms', 'report_general.platform_id', '=', 'platforms.id')
             ->groupByRaw("report_general.users_id, MONTH(report_general.reporting_period)")
             ->orderBy('report_general.reporting_period', 'desc');
 
@@ -53,6 +31,7 @@ class ReportArtistController extends Controller {
 
         $report = $report
             ->selectRaw("
+                            platforms.name as platform,
                             report_general.artist,
                             sum(report_general.revenue) as revenue,
                             report_general.reporting_period
@@ -70,13 +49,13 @@ class ReportArtistController extends Controller {
 
         $dataTable = DataTables::of($generalData)
             ->addIndexColumn()
-            ->addColumn('artist_name', '{{$artist}}')
+            ->addColumn('platform', '{{$platform}}')
+            ->addColumn('artist', '{{$artist}}')
             ->addColumn('revenue', '{{$revenue}}')
-            ->addColumn('report_date', fn ($data) => date('Y-m-d', strtotime($data->reporting_period)))
             ->rawColumns([
-                'artist_name',
+                'platform',
+                'artist',
                 'revenue',
-                'report_date',
             ]);
 
 

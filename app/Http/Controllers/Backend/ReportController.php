@@ -53,7 +53,10 @@ class ReportController extends Controller {
 
         if (!empty($accountingPeriod)) {
             $generalReport->where('report_general.reporting_period', $accountingPeriod);
+        } else {
+            $generalReport->whereRaw("date(report_general.created_at) >= ADDDATE(LAST_DAY(SUBDATE(CURRENT_DATE, INTERVAL 1 MONTH)), 1)"); // FIRST_DAY OF CURRENT_DATE
         }
+
         if ((int)$platformId > 0) {
             $generalReport->where('report_general.platform_id', $platformId);
         }
@@ -119,6 +122,12 @@ class ReportController extends Controller {
         DB::beginTransaction();
         try {
             $userId = $request->post('user_id');
+            $realaseDate = $this->releaseDate();
+            $isRelease = 0;
+            if (((int)date('j')) >= 10) {
+                $isRelease = 1;
+            }
+
             ReportGeneralModel::query()->insert([
                 'users_id' => $userId,
                 'reporting_period' => $request->post('reporting_period'),
@@ -133,8 +142,8 @@ class ReportController extends Controller {
                 'channel_name' => $request->post('channel_name'),
                 'quantity' => $request->post('quantity'),
                 'sales_type' => $request->post('sales_type'),
-                'is_release' => 0,
-                'release_date' => $this->releaseDate(),
+                'is_release' => $isRelease,
+                'release_date' => $realaseDate,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
@@ -178,12 +187,13 @@ class ReportController extends Controller {
     }
 
     private function releaseDate() {
-        $current_day = (int)date('j');
-        if ($current_day < 10) {
+        //$current_day = (int)date('j');
+        /* if ($current_day < 10) {
             $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of this month')));
         } else {
             $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of next month')));
-        }
+        } */
+        $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of this month')));
 
         return $firstDayNextMonth;
     }

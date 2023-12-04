@@ -35,15 +35,19 @@
                 <div class="card info-card revenue-card">
                     <div class="card-body">
                         <h5 class="card-title">
-                            {{ ($userSession->tipe_user === 'admin' ? 'Total Witdraws ' : '') . $last2MonthName }}</h5>
+                            {{ ($userSession->tipe_user === 'admin' ? "Total Witdraws $wd3MonthName" : $last2MonthName) }}</h5>
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                 <i class="bi bi-currency-dollar"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>{{ $lastBalance3Month }}</h6>
-                                <span class="text-muted small pt-1 fw-bold">{{ $lastBalance2MonthPercentage }}%</span>
-                                <span class="text-muted small pt-2 ps-1">{{ $info2LastMonth }}</span>
+                                <h6>
+                                    {{ $userSession->tipe_user === 'admin' ? $wd3Total : $lastBalance3Month }}
+                                </h6>
+                                <span class="text-muted small pt-1 fw-bold">
+                                    {{ $userSession->tipe_user === 'admin' ? $wd3Percentage : $lastBalance2MonthPercentage }} %
+                                </span>
+                                {{-- <span class="text-muted small pt-2 ps-1">{{ $info2LastMonth }}</span> --}}
                             </div>
                         </div>
                     </div>
@@ -53,7 +57,7 @@
                 <div class="card info-card customers-card">
                     <div class="card-body">
                         <h5 class="card-title">
-                            {{ ($userSession->tipe_user === 'admin' ? 'Total Witdraws ' : '') . $last1MonthName }}</span>
+                            {{ ($userSession->tipe_user === 'admin' ? "Total Witdraws $wd2MonthName" : $last1MonthName) }}</span>
                         </h5>
 
                         <div class="d-flex align-items-center">
@@ -61,9 +65,14 @@
                                 <i class="bi bi-currency-dollar"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>{{ $lastBalance2Month }}</h6>
-                                <span class="text-muted small pt-1 fw-bold">{{ $lastBalance1MonthPercentage }}%</span>
-                                <span class="text-muted small pt-2 ps-1">{{ $info1LastMonth }}</span>
+                                <h6>
+                                    {{ $userSession->tipe_user === 'admin' ? $wd2Total : $lastBalance2Month }}
+                                </h6>
+                                <span class="text-muted small pt-1 fw-bold">
+                                    {{ $userSession->tipe_user === 'admin' ? $wd2Percentage : $lastBalance1MonthPercentage }}
+                                    %
+                                </span>
+                                {{-- <span class="text-muted small pt-2 ps-1">{{ $info1LastMonth }}</span> --}}
                             </div>
                         </div>
                     </div>
@@ -73,16 +82,19 @@
                 <div class="card info-card customers-card">
                     <div class="card-body">
                         <h5 class="card-title">
-                            {{ ($userSession->tipe_user === 'admin' ? 'Total Witdraws ' : '') . $lastMonthName }}</h5>
+                            {{ $userSession->tipe_user === 'admin' ? "Total Witdraws $wd1MonthName" : $lastMonthName }}
+                        </h5>
 
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                 <i class="bi bi-currency-dollar"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>{{ $lastBalance1Month }}</h6>
-                                <span class="text-muted small pt-1 fw-bold">{{ $lastBalancePercentage }} %</span>
-                                <span class="text-muted small pt-2 ps-1">{{ $infoLastMonth }}</span>
+                                <h6>{{ $userSession->tipe_user === 'admin' ? $wd1Total : $lastBalance1Month }}</h6>
+                                <span class="text-muted small pt-1 fw-bold">
+                                    {{ $userSession->tipe_user === 'admin' ? $wd1Percentage : $lastBalancePercentage }} %
+                                </span>
+                                {{-- <span class="text-muted small pt-2 ps-1">{{ $infoLastMonth }}</span> --}}
                             </div>
                         </div>
                     </div>
@@ -91,7 +103,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Income Chart</h5>
+                        <h5 class="card-title">
+                            {{ $userSession->tipe_user === 'admin' ? 'Withdraw Chart ' : 'Income Chart' }}
+                        </h5>
                         <div class="row" style="max-width: 100% !important;">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div id="income-chart"></div>
@@ -111,9 +125,20 @@
                 var options = {
                     series: [{
                         name: 'Income',
-                        data: [{{ formatOnlyNumber($lastBalance3Month) }},
+                        data: [
+                            {{ formatOnlyNumber($lastBalance12Month) }},
+                            {{ formatOnlyNumber($lastBalance11Month) }},
+                            {{ formatOnlyNumber($lastBalance10Month) }},
+                            {{ formatOnlyNumber($lastBalance9Month) }},
+                            {{ formatOnlyNumber($lastBalance8Month) }},
+                            {{ formatOnlyNumber($lastBalance7Month) }},
+                            {{ formatOnlyNumber($lastBalance6Month) }},
+                            {{ formatOnlyNumber($lastBalance5Month) }},
+                            {{ formatOnlyNumber($lastBalance4Month) }},
+                            {{ formatOnlyNumber($lastBalance3Month) }},
                             {{ formatOnlyNumber($lastBalance2Month) }},
-                            {{ formatOnlyNumber($lastBalance1Month) }}, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                            {{ formatOnlyNumber($lastBalance1Month) }},
+                            //0, 0, 0, 0, 0, 0, 0, 0, 0
                         ]
                     }],
                     chart: {
@@ -143,9 +168,21 @@
                     },
 
                     xaxis: {
-                        categories: ["{{ $last2MonthName }}", '{{ $last1MonthName }}',
+                        categories: [
+                            //"{{ $last12MonthName }}",
+                            "{{ $last11MonthName }}",
+                            "{{ $last10MonthName }}",
+                            "{{ $last9MonthName }}",
+                            "{{ $last8MonthName }}",
+                            "{{ $last7MonthName }}",
+                            "{{ $last6MonthName }}",
+                            "{{ $last5MonthName }}",
+                            "{{ $last4MonthName }}",
+                            "{{ $last3MonthName }}",
+                            "{{ $last2MonthName }}",
+                            '{{ $last1MonthName }}',
                             "{{ $lastMonthName }}",
-                            '-', '-', '-', '-', '-', '-', '-', '-', '-',
+                            //'-', '-', '-', '-', '-', '-', '-', '-', '-',
                         ],
                         position: 'top',
                         axisBorder: {

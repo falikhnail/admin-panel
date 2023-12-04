@@ -236,7 +236,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="float-end">
-                            <h3 class="c-act-primary fw-bold">Invoice #2459</h3>
+                            <h3 class="c-act-primary fw-bold">Invoice #{{ $invNumb }}</h3>
                         </div>
                     </div>
                 </div>

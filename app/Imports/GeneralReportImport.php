@@ -14,8 +14,7 @@ use Maatwebsite\Excel\Concerns\ToArray;
 use Session;
 use Throwable;
 
-class GeneralReportImport implements ToArray
-{
+class GeneralReportImport implements ToArray {
     private $userSession;
 
     private $headerKeys = [
@@ -44,8 +43,7 @@ class GeneralReportImport implements ToArray
     /**
      * @param array $array
      */
-    public function array(array $array)
-    {
+    public function array(array $array) {
         try {
             foreach ($array as $key => $values) {
                 if ($key === 0) {
@@ -68,6 +66,11 @@ class GeneralReportImport implements ToArray
                         continue;
                     }
 
+                    $isRelease = 0;
+                    if (((int)date('j')) >= 10) {
+                        $isRelease = 1;
+                    }
+
                     $data = [
                         'users_id' => $this->userIdSelected,
                         'reporting_period' => $this->reportingDate,
@@ -82,6 +85,7 @@ class GeneralReportImport implements ToArray
                         'revenue' => ((float)$values[9]) ?: null,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
+                        'is_release' => $isRelease,
                         'release_date' => $this->releaseDate(),
                         'quantity' => $values[10] ?: null,
                         'sales_type' => $values[11] ?: null,
@@ -98,8 +102,7 @@ class GeneralReportImport implements ToArray
         }
     }
 
-    private function validateHeaderWithRowNumber($headers)
-    {
+    private function validateHeaderWithRowNumber($headers) {
         $message = [];
         foreach ($headers as $key => $value) {
             $header = $value;
@@ -147,14 +150,15 @@ class GeneralReportImport implements ToArray
         return count($message) > 0 ? implode("\n", $message) : null;
     }
 
-    private function releaseDate()
-    {
-        $current_day = (int)date('j');
+    private function releaseDate() {
+        /* $current_day = (int)date('j');
         if ($current_day < 10) {
             $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of this month')));
         } else {
             $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of next month')));
-        }
+        } */
+
+        $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of this month')));
 
         return $firstDayNextMonth;
     }
