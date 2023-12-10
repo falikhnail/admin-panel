@@ -31,6 +31,8 @@ return new class extends Migration
         Schema::table('report_general', function (Blueprint $table) {
             $table->dropColumn('release_date');
             $table->dropColumn('is_release');
+            $table->dropColumn('quantity');
+            $table->dropColumn('sales_type');
         });
     }
 };

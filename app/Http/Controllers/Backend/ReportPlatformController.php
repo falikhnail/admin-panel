@@ -2,16 +2,31 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Exports\PlatformReportExport;
 use App\Http\Controllers\Controller;
-use App\Models\ReportGeneralModel;
+use App\Imports\PlatformReportImport;
+use App\Models\PlatformsModel;
+use App\Models\ReportPlatform;
 use App\Models\SessionKeyModel;
+use App\Models\UserBalanceModel;
+use App\Models\UserModel;
+use DB;
+use Flash;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Throwable;
 use Yajra\DataTables\DataTables;
 
 class ReportPlatformController extends Controller {
 
     public function index() {
-        return view('backend.report_platform');
+        $user = UserModel::allUser();
+        $platforms = PlatformsModel::all();
+
+        return view('backend.report_platform', compact(
+            'platforms',
+            'user'
+        ));
     }
 
     public function indexDataTable(Request $request) {
@@ -20,34 +35,34 @@ class ReportPlatformController extends Controller {
         // * filter
         $reportDate = $request->get('reportDate');
 
-        $report = ReportGeneralModel::query()
-            ->leftJoin('platforms', 'report_general.platform_id', '=', 'platforms.id')
-            ->groupByRaw("report_general.users_id, MONTH(report_general.reporting_period)")
-            ->orderBy('report_general.reporting_period', 'desc');
+        $report = ReportPlatform::query()
+            ->leftJoin('platforms', 'report_platform.platform_id', '=', 'platforms.id')
+            ->groupByRaw("report_platform.users_id, MONTH(report_platform.reporting_period)")
+            ->orderBy('report_platform.reporting_period', 'desc');
 
         if (!empty($reportDate)) {
-            $report->whereRaw("DATE(report_general.created_at) = '$reportDate'");
+            $report->whereRaw("DATE(report_platform.created_at) = '$reportDate'");
         }
 
         $report = $report
             ->selectRaw("
                             platforms.name as platform,
-                            report_general.artist,
-                            sum(report_general.revenue) as revenue,
-                            report_general.reporting_period
+                            report_platform.artist,
+                            sum(report_platform.revenue) as revenue,
+                            report_platform.reporting_period
                         ");
 
         if ($userSession->tipe_user === 'user') {
-            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id)) ";
+            $sqlUser = "(report_platform.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id)) ";
             $sqlReleaseUser = "and (is_release = 1)";
             //Log::info($report->whereRaw($sqlUser)->toSql());
-            $generalData = $report->whereRaw($sqlUser . $sqlReleaseUser);
+            $report = $report->whereRaw($sqlUser . $sqlReleaseUser);
         } else {
-            $generalData = $report;
+
         }
 
 
-        $dataTable = DataTables::of($generalData)
+        $dataTable = DataTables::of($report)
             ->addIndexColumn()
             ->addColumn('platform', '{{$platform}}')
             ->addColumn('artist', '{{$artist}}')
@@ -67,5 +82,87 @@ class ReportPlatformController extends Controller {
         }
 
         return $dataTable->make(true);
+    }
+
+    public function create(Request $request) {
+        $user = UserModel::allUser();
+        $platforms = PlatformsModel::all();
+
+        return view('backend.add_report_platform', compact(
+            'user',
+            'platforms'
+        ));
+    }
+
+    public function store(Request $request) {
+        DB::beginTransaction();
+        try {
+            $userId = $request->post('user_id');
+            $realaseDate = $this->releaseDate();
+            $isRelease = 0;
+            if (((int)date('j')) >= 10) {
+                $isRelease = 1;
+            }
+
+            ReportPlatform::query()->insert([
+                'users_id' => $userId,
+                'platform_id' => $request->post('platform'),
+                'artist' => $request->post('artist'),
+                'revenue' => $request->post('revenue'),
+                'reporting_period' => $request->post('reporting_period'),
+                'is_release' => $isRelease,
+                'release_date' => $realaseDate,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+
+
+            UserBalanceModel::addRevenue($userId, $request->post('revenue'), 'revenue platform');
+
+            Flash::success('Berhasil Menambahkan Data');
+
+            DB::commit();
+
+            return redirect()->route('backend.report_platform');
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            Flash::error('Gagal Menambahkan Data, Error >>> ' . $e->getMessage());
+
+            return redirect()->back();
+        }
+    }
+
+    public function import(Request $request) {
+        try {
+            $file = $request->file('upload_file');
+
+            Excel::import(new PlatformReportImport(
+                $request->user_id,
+                $request->reporting_period,
+            ), $file);
+
+            Flash::success('File Berhasil di Import');
+        } catch (Throwable $e) {
+            Flash::error('Error Upload >>> ' . $e->getMessage());
+        }
+
+        return back();
+    }
+
+    public function export(Request $request) {
+        return Excel::download(new PlatformReportExport, 'Report Platform.xlsx');
+    }
+
+    private function releaseDate() {
+        //$current_day = (int)date('j');
+        /* if ($current_day < 10) {
+            $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of this month')));
+        } else {
+            $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of next month')));
+        } */
+        $firstDayNextMonth = date('Y-m-d', strtotime('+9 days', strtotime('first day of this month')));
+
+        return $firstDayNextMonth;
     }
 }

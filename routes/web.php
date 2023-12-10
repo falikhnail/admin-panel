@@ -73,9 +73,14 @@ Route::group(
         Route::get('channel-list', 'ReportChannelController@indexDataTable')->name('channel_list');
         Route::post('save-channel', 'ReportChannelController@store')->name('save_channel');
 
-        // * channel
+        // * platform
         Route::get('report-platform', 'ReportPlatformController@index')->name('report_platform');
+        Route::get('report-platform-add', 'ReportPlatformController@create')->name('report_platform_add');
         Route::get('platform-list', 'ReportPlatformController@indexDataTable')->name('platform_list');
+        Route::post('save-platform', 'ReportPlatformController@store')->name('save_platform');
+        Route::get('export-platform', 'ReportPlatformController@export')->name('export_platform');
+        Route::post('import-platform', 'ReportPlatformController@import')->name('import_platform');
+
 
         // * withdraws
         Route::get('withdraws', 'WithdrawsController@index')->name('withdraws');

@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserBalanceSeeder::class);
         $this->call(BankAccountSeeder::class);
 
-        ReportArtistModel::factory(10)->create();
-        ReportChannelModel::factory(10)->create();
+        // ReportArtistModel::factory(10)->create();
+        // ReportChannelModel::factory(10)->create();
 
         Schema::enableForeignKeyConstraints();
     }

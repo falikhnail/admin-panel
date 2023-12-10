@@ -25,8 +25,28 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="#reportDate" class="form-label">Report Date</label>
-                                <input type="text" class="form-control datepicker" id="reportDate"
-                                    name="report-date" placeholder="Input Report Date">
+                                <input type="text" class="form-control datepicker" id="reportDate" name="report-date"
+                                    placeholder="Input Report Date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-5">
+                        <div class="col-xs-12 col-md-12 col-lg-12">
+                            <div class="float-start">
+                                @if ($userSession->tipe_user === 'admin')
+                                    <a href="{{ route('backend.report_platform_add') }}"
+                                        class="btn-act btn-act-primary btn-act-md">
+                                        <i class="bi bi-plus-circle"></i> Tambah
+                                    </a>
+                                    <button class="btn-act btn-act-primary btn-act-md" id="btn-upload">
+                                        <i class="bi bi-arrow-up-circle"></i> Upload
+                                    </button>
+                                    @include('backend.includes.modal_upload_platform')
+                                @endif
+                                <a class="btn-act btn-act-primary btn-act-md" href="{{ route('backend.export_platform') }}"
+                                    target="_blank">
+                                    <i class="bi bi-arrow-down-circle"></i> Download
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -56,6 +76,21 @@
 @push('after-scripts')
     <script type="text/javascript" src="{{ asset('vendor/datatable/datatables.min.js') }}"></script>
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#reporting_period").datepicker({
+                uiLibrary: 'bootstrap5',
+                format: 'yyyy-mm-dd'
+            })
+
+            // * modal component
+            $("#user").select2({
+                dropdownParent: $('#m_upload_platform'),
+                placeholder: 'Search User',
+                width: '100%',
+                theme: 'bootstrap-5',
+            })
+        })
+
         let table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -113,7 +148,7 @@
 
         $("#btn-upload").click((event) => {
             event.preventDefault();
-            $('#m_upload_general').modal('show');
+            $('#m_upload_platform').modal('show');
         });
     </script>
 @endpush

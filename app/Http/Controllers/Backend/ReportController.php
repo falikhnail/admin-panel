@@ -149,7 +149,7 @@ class ReportController extends Controller {
             ]);
 
 
-            UserBalanceModel::addRevenue($userId, $request->post('revenue'));
+            UserBalanceModel::addRevenue($userId, $request->post('revenue'), 'revenue general');
 
             Flash::success('Berhasil Menambahkan Data');
 

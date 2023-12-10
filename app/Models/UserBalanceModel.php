@@ -154,7 +154,7 @@ class UserBalanceModel extends BaseModel {
         return [];
     }
 
-    public static function addRevenue($userId, $revenue) {
+    public static function addRevenue($userId, $revenue, $ket) {
         $userData = UserModel::where('id', $userId)->first();
         Log::warning($userData);
 
@@ -171,7 +171,7 @@ class UserBalanceModel extends BaseModel {
                     'kredit' => 0.0,
                     'debit' => (float) $revenue,
                     'balance' => (float) $lastBalanceUser + (float) $revenue,
-                    'keterangan' => 'revenue',
+                    'keterangan' => $ket,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ]);

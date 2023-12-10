@@ -29,7 +29,7 @@ class WithdrawsController extends Controller {
     public function index() {
         $isAdmin = $this->userSession->tipe_user === 'admin';
         $bankAccount = $isAdmin ? [] : UserModel::lastBalanceByUserId($this->userSession->id);
-        $balance = $isAdmin ? 0 : format_usd(!empty($bankAccount) ? $bankAccount->balance : 0);
+        $balance = $isAdmin ? 0 : (!empty($bankAccount) ? $bankAccount->balance : 0);
 
         return view('backend.withdraws', compact(
             'bankAccount',
@@ -38,7 +38,7 @@ class WithdrawsController extends Controller {
     }
 
     public function indexDataTable(Request $request) {
-        $withdraws = WithdrawModel::query()->orderBy('withdraws.request_date', 'desc');
+        $withdraws = WithdrawModel::query()->orderByRaw('withdraws.request_date desc, withdraws.updated_at desc');
         if ($this->userSession->tipe_user === 'user') {
             $withdraws->where('users_id', $this->userSession->id);
         }

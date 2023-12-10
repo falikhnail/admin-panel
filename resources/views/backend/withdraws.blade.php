@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="col">
                                 <h4 class="c-act-primary">Balance</h4>
-                                <span class="badge bg-act-primary p-2">{{ $balance }}</span>
+                                <span class="badge bg-act-primary p-2">${{ $balance }}</span>
                             </div>
                             <span class="text-danger mt-3 f-15">Minimal Withdraws $50.00</h4>
                         </div>

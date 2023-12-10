@@ -59,7 +59,7 @@ class WithdrawsSeeder extends Seeder
             ],
             [
                 'users_id' => 2,
-                'amount' => 50.00,
+                'amount' => 70.00,
                 'request_date' => $date('+0 day'),
                 'status' => 'approved'
             ],

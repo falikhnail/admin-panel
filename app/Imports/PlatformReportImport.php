@@ -3,7 +3,7 @@
 namespace App\Imports;
 
 use App\Models\PlatformsModel;
-use App\Models\ReportGeneralModel;
+use App\Models\ReportPlatform;
 use App\Models\SessionKeyModel;
 use App\Models\UserBalanceModel;
 use Carbon\Carbon;
@@ -11,25 +11,19 @@ use Exception;
 use Illuminate\Support\Collection;
 use Log;
 use Maatwebsite\Excel\Concerns\ToArray;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Session;
 use Throwable;
 
-class GeneralReportImport implements ToArray {
+class PlatformReportImport implements ToArray
+{
     private $userSession;
 
     private $headerKeys = [
         'no',
         'platform',
-        'label_name',
-        'channel_name',
         'artist',
-        'album',
-        'title',
-        'isrc',
-        'upc',
         'revenue',
-        'quantity',
-        'sales_type'
     ];
 
     public function __construct(
@@ -62,7 +56,7 @@ class GeneralReportImport implements ToArray {
                     }
 
                     //ignore empty row
-                    if (empty($values[1]) || empty($values[2]) || empty($values[3]) || empty($values[4])) {
+                    if (empty($values[1]) && empty($values[2]) && empty($values[3])) {
                         continue;
                     }
 
@@ -73,32 +67,24 @@ class GeneralReportImport implements ToArray {
 
                     $data = [
                         'users_id' => $this->userIdSelected,
-                        'reporting_period' => $this->reportingDate,
                         'platform_id' => $platformId,
                         'platform_imported' => $values[1] ?: null,
-                        'label_name' => $values[2] ?: null,
-                        'channel_name' => $values[3] ?: null,
-                        'artist' => $values[4] ?: null,
-                        'album' => $values[5] ?: null,
-                        'title' => $values[6] ?: null,
-                        'isrc' => $values[7] ?: null,
-                        'upc' => $values[8] ?: null,
-                        'revenue' => ((float)$values[9]) ?: null,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now(),
+                        'artist' => $values[2] ?: null,
+                        'revenue' => ((float)$values[3]) ?: null,
                         'is_release' => $isRelease,
                         'release_date' => $this->releaseDate(),
-                        'quantity' => $values[10] ?: null,
-                        'sales_type' => $values[11] ?: null,
+                        'reporting_period' => $this->reportingDate,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
                     ];
 
-                    ReportGeneralModel::query()->insert($data);
+                    ReportPlatform::query()->insert($data);
 
-                    UserBalanceModel::addRevenue($this->userIdSelected, ((float)$values[9]) ?: null, 'import revenue general');
+                    UserBalanceModel::addRevenue($this->userIdSelected, ((float)$values[3]) ?: null, 'import revenue platform');
                 }
             }
         } catch (Throwable $e) {
-            Log::error('error upload general  >>>> ' . $e->getMessage());
+            Log::error('error upload platform  >>>> ' . $e->getMessage());
             abort('500', 'Make sure file to upload is similiar with template');
         }
     }
@@ -119,33 +105,6 @@ class GeneralReportImport implements ToArray {
             if ($key === 3 && $header !== $this->headerKeys[3]) {
                 $message[] = 'Posisikan Cell Header ' . $this->headerKeys[3] . ' Sesusai Template Upload';
             }
-            if ($key === 4 && $header !== $this->headerKeys[4]) {
-                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[4] . ' Sesusai Template Upload';
-            }
-            if ($key === 5 && $header !== $this->headerKeys[5]) {
-                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[5] . ' Sesusai Template Upload';
-            }
-            if ($key === 6 && $header !== $this->headerKeys[6]) {
-                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[6] . ' Sesusai Template Upload';
-            }
-            if ($key === 7 && $header !== $this->headerKeys[7]) {
-                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[7] . ' Sesusai Template Upload';
-            }
-            if ($key === 8 && $header !== $this->headerKeys[8]) {
-                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[8] . ' Sesusai Template Upload';
-            }
-            if ($key === 9 && $header !== $this->headerKeys[9]) {
-                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[9] . ' Sesusai Template Upload';
-            }
-            if ($key === 10 && $header !== $this->headerKeys[10]) {
-                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[10] . ' Sesusai Template Upload';
-            }
-            if ($key === 11 && $header !== $this->headerKeys[11]) {
-                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[11] . ' Sesusai Template Upload';
-            }
-            /* if ($key === 10 && $header !== $this->headerKeys[10]) {
-                $message[] = 'Posisikan Cell Header ' . $this->headerKeys[10] . ' Sesusai Template Upload';
-            } */
         }
 
         return count($message) > 0 ? implode("\n", $message) : null;

@@ -40,8 +40,8 @@ class UserBalanceSeeder extends Seeder {
             [
                 'users_id' => 2,
                 'kredit' => 0,
-                'debit' => 50.20,
-                'balance' => 50.20,
+                'debit' => 70.20,
+                'balance' => 70.20,
                 'keterangan' => 'Deposit',
                 'created_at' => $date('+0 day'),
                 'updated_at' => $date('+0 day'),
