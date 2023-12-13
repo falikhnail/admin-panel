@@ -13066,3 +13066,23 @@ header.masthead .h1 {
     max-height: 100%;
     border-radius: 20px;
 }
+
+.img-platform {
+    width: 150px;
+}
+
+
+@media (min-width: 768px) {
+    .img-platform {
+        width: 220px;
+    }
+}
+
+.bg-layanan {
+    color: var(--bs-white) !important;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(var(--bs-primary)));
+    background: -webkit-linear-gradient(#fff 0%, var(--bs-primary) 100%);
+    background: -moz-linear-gradient(#fff 0%, var(--bs-primary) 100%);
+    background: -o-linear-gradient(#fff 0%, var(--bs-primary) 100%);
+    background: linear-gradient(#fff 0%, var(--bs-primary) 100%);
+}

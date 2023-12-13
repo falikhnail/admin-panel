@@ -16,7 +16,7 @@
                     <a class="nav-link {{ request()->is('about') ? 'active' : '' }} {{ request()->is('about') }}"
                         href="{{ route('about') }}">About</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">Platform</a></li>
                 <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
                 <li class="nav-item d-sm-none d-md-none d-inline">
                     <a class="btn btn-primary btn-xl"

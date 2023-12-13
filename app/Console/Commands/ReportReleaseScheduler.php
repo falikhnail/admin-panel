@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\ReportChannelModel;
 use App\Models\ReportGeneralModel;
 use App\Models\ReportPlatform;
 use Carbon\Carbon;
@@ -32,7 +33,8 @@ class ReportReleaseScheduler extends Command {
      */
     public function handle() {
         $this->proccedGeneral();
-        $this->proccedPlatform();
+        $this->proccedChannel();
+        //$this->proccedPlatform();
     }
 
     private function proccedGeneral() {
@@ -62,6 +64,24 @@ class ReportReleaseScheduler extends Command {
         if ($data->isNotEmpty()) {
             foreach ($data as $platform) {
                 ReportGeneralModel::query()
+                    ->where('id', $platform->id)
+                    ->update([
+                        'updated_at' => Carbon::now(),
+                        'is_release' => 1
+                    ]);
+            }
+        }
+    }
+
+    private function proccedChannel() {
+        $data = ReportChannelModel::query()
+            ->whereRaw("release_date = CURRENT_DATE")
+            ->whereRaw("(is_release = 0 or is_release is null)")
+            ->get();
+
+        if ($data->isNotEmpty()) {
+            foreach ($data as $platform) {
+                ReportChannelModel::query()
                     ->where('id', $platform->id)
                     ->update([
                         'updated_at' => Carbon::now(),

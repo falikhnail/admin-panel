@@ -77,7 +77,7 @@ class GenerateMenus {
                     //'class' => 'nav-link',
                 ]);
 
-            $reports->add('<i class="bi bi-circle"></i> Platform', [
+            /* $reports->add('<i class="bi bi-circle"></i> Platform', [
                 'route' => 'backend.report_platform',
             ])
                 ->data([
@@ -86,7 +86,7 @@ class GenerateMenus {
                 ])
                 ->link->attr([
                     //'class' => 'nav-link',
-                ]);
+                ]); */
 
             $menu->add('<i class=" bi bi-person"></i> Withdraws', [
                 'route' => 'backend.withdraws',

@@ -36,35 +36,30 @@
 
     <section class="page-section" id="services">
         <div class="container px-4 px-lg-5" data-aos="fade-up">
-            <h2 class="text-center mt-0">Layanan Kami</h2>
+            <h2 class="text-center mt-0">Platform</h2>
             <hr class="divider" />
-            <div class="row gx-4 gx-lg-5">
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="mt-5">
-                        <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
-                        <h3 class="h4 mb-2">Sturdy Themes</h3>
-                        <p class="text-muted mb-0">Our themes are updated regularly to keep them bug free!</p>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-flex flex-wrap align-items-center justify-content-center gap-5">
+                            <img src="{{ asset('img/logo/apple-music-300x72.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/deezer_300_59.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/Joox-Logo-300x200.png') }}" alt="" class="img-platform">
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="mt-5">
-                        <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
-                        <h3 class="h4 mb-2">Up to Date</h3>
-                        <p class="text-muted mb-0">All dependencies are kept current to keep things fresh.</p>
+                    <div class="col-md-12">
+                        <div class="d-flex flex-wrap align-items-center justify-content-center gap-5">
+                            <img src="{{ asset('img/logo/pandora-300x200.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/tidal-300x200.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/soundcloud-300x200.png') }}" alt="" class="img-platform">
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="mt-5">
-                        <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
-                        <h3 class="h4 mb-2">Ready to Publish</h3>
-                        <p class="text-muted mb-0">You can use this design as is, or you can make changes!</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="mt-5">
-                        <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
-                        <h3 class="h4 mb-2">Made with Love</h3>
-                        <p class="text-muted mb-0">Is it really open source if it's not made with love?</p>
+                    <div class="col-md-12">
+                        <div class="d-flex flex-wrap align-items-center justify-content-center gap-5">
+                            <img src="{{ asset('img/logo/ig-300x200.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/fb-300x200.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/tiktok-300x200.png') }}" alt="" class="img-platform">
+                        </div>
                     </div>
                 </div>
             </div>

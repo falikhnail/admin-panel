@@ -18,11 +18,11 @@
                         </a>
                         <div class="divider-lg"></div>
                         <a href="#" class="nav-link mt-2">
-                            Services
+                            Platform
                         </a>
                         <div class="divider-lg"></div>
                         <a href="#" class="nav-link mt-2">
-                            Kontak
+                            Contact
                         </a>
                         <div class="divider-lg"></div>
                         <a href="#" class="nav-link mt-2">
@@ -42,6 +42,13 @@
                         <div class="d-flex align-items-center mt-3">
                             <i class="bi bi-envelope me-2"></i>
                             Admin@mastermusic.co.id
+                        </div>
+                        <div class="d-flex align-items-center mt-3">
+                            <i class="bi bi-clock me-2"></i>
+                            Senin-Jumat: 09:00-17:00
+                        </div>
+                        <div class="d-flex align-items-center mt-3">
+                            Sabtu : 09:00-14:00
                         </div>
                         <p class="mt-3">
                             <a href="#" class="none text-black">

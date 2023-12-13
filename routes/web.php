@@ -72,6 +72,8 @@ Route::group(
         Route::get('report-channel-add', 'ReportChannelController@create')->name('report_channel_add');
         Route::get('channel-list', 'ReportChannelController@indexDataTable')->name('channel_list');
         Route::post('save-channel', 'ReportChannelController@store')->name('save_channel');
+        Route::get('export-channel', 'ReportChannelController@export')->name('export_channel');
+        Route::post('import-channel', 'ReportChannelController@import')->name('import_channel');
 
         // * platform
         Route::get('report-platform', 'ReportPlatformController@index')->name('report_platform');

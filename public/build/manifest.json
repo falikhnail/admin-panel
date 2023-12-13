@@ -13,14 +13,14 @@
     "src": "bootstrap.bundle.css"
   },
   "resources/js/auth.css": {
-    "file": "assets/auth-9f19355f.css",
+    "file": "assets/auth-f18f3430.css",
     "src": "resources/js/auth.css"
   },
   "resources/js/auth.js": {
     "css": [
-      "assets/auth-9f19355f.css"
+      "assets/auth-f18f3430.css"
     ],
-    "file": "assets/auth-1e669f43.js",
+    "file": "assets/auth-7b92993d.js",
     "imports": [
       "_app-41e7cd70.js",
       "_bootstrap.bundle.min-859ab3c3.js"
@@ -56,14 +56,14 @@
     "src": "resources/js/backend.js"
   },
   "resources/js/frontend.css": {
-    "file": "assets/frontend-0531baea.css",
+    "file": "assets/frontend-d3e62a2a.css",
     "src": "resources/js/frontend.css"
   },
   "resources/js/frontend.js": {
     "css": [
-      "assets/frontend-0531baea.css"
+      "assets/frontend-d3e62a2a.css"
     ],
-    "file": "assets/frontend-ace7674c.js",
+    "file": "assets/frontend-e5da4023.js",
     "imports": [
       "_app-41e7cd70.js"
     ],

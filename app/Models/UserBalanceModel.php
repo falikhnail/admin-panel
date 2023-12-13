@@ -46,7 +46,7 @@ class UserBalanceModel extends BaseModel {
                                 WHERE
                                     users_id = '$userId'
                                     AND MONTH (DATE_ADD( reporting_period, INTERVAL 2 MONTH )) = MONTH (now()) - $month
-                                    # AND YEAR (DATE_ADD( reporting_period, INTERVAL 2 MONTH )) = YEAR (MONTH (now()) - $month)
+                                    AND YEAR (DATE_ADD( reporting_period, INTERVAL 2 MONTH )) = YEAR(DATE_SUB(NOW(), INTERVAL $month MONTH))
                             ) $alias ON u1.id = $alias.users_id";
         };
 

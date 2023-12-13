@@ -25,32 +25,32 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="#reportDate" class="form-label">Report Date</label>
-                                <input type="text" class="form-control datepicker" id="reportDate"
-                                    name="report-date" placeholder="Input Report Date">
+                                <input type="text" class="form-control datepicker" id="reportDate" name="report-date"
+                                    placeholder="Input Report Date">
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="divider mb-3"></div>
+                    <div class="divider mb-3"></div>
                     <div class="row my-5">
                         <div class="col-xs-12 col-md-12 col-lg-12">
                             <div class="float-start">
                                 @if ($userSession->tipe_user === 'admin')
-                                    <a href="{{ route('backend.report_general_add') }}"
+                                    <a href="{{ route('backend.report_channel_add') }}"
                                         class="btn-act btn-act-primary btn-act-md">
                                         <i class="bi bi-plus-circle"></i> Tambah
                                     </a>
                                     <button class="btn-act btn-act-primary btn-act-md" id="btn-upload">
                                         <i class="bi bi-arrow-up-circle"></i> Upload
                                     </button>
-                                    @include('backend.includes.modal_upload_general')
+                                    @include('backend.includes.modal_upload_channel')
                                 @endif
-                                <a class="btn-act btn-act-primary btn-act-md" href="{{ route('backend.export_general') }}"
+                                <a class="btn-act btn-act-primary btn-act-md" href="{{ route('backend.export_channel') }}"
                                     target="_blank">
                                     <i class="bi bi-arrow-down-circle"></i> Download
                                 </a>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="divider mb-3"></div>
                     <div class="row">
                         <div class="col-xs-12 col-md-12 col-lg-12">
@@ -60,6 +60,7 @@
                                         <th>No</th>
                                         <th>Label Name</th>
                                         <th>Channel Name</th>
+                                        <th>Channel Id</th>
                                         <th>Revenue</th>
                                         <th>Report Date</th>
                                     </tr>
@@ -78,6 +79,21 @@
 @push('after-scripts')
     <script type="text/javascript" src="{{ asset('vendor/datatable/datatables.min.js') }}"></script>
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#reporting_period").datepicker({
+                uiLibrary: 'bootstrap5',
+                format: 'yyyy-mm-dd'
+            })
+
+            // * modal component
+            $("#user").select2({
+                dropdownParent: $('#m_upload_channel'),
+                placeholder: 'Search User',
+                width: '100%',
+                theme: 'bootstrap-5',
+            })
+        })
+
         let table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -115,6 +131,10 @@
                     name: 'channel_name',
                 },
                 {
+                    data: 'channel_id',
+                    name: 'channel_id',
+                },
+                {
                     data: 'revenue',
                     name: 'revenue',
                     className: "text-center"
@@ -142,7 +162,7 @@
 
         $("#btn-upload").click((event) => {
             event.preventDefault();
-            $('#m_upload_general').modal('show');
+            $('#m_upload_channel').modal('show');
         });
     </script>
 @endpush
