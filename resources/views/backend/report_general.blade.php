@@ -34,13 +34,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col">
+                        {{-- <div class="col">
                             <div class="form-group">
                                 <label for="#accountringPeriod" class="form-label">Accounting Period</label>
                                 <input type="text" class="form-control datepicker" id="accountringPeriod"
                                     name="accounting-period" placeholder="Input Accounting Period">
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-12">
 
                         </div>

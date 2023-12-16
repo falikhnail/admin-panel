@@ -257,10 +257,9 @@
                         <div class="float-end text-end">
                             <strong>Invoiced To</strong>
                             <address class="small-text">
-                                Super Aggregator<br />
-                                PT Aggregator<br />
-                                Jalan Matraman Raya Nomor 148, Blok C - 22<br />
-                                Matraman,Jakarta Timur 13150<br />
+                                Master Music<br />
+                                PT Kalingga Media Perkasa<br />
+                                Jalan Raya Bangsri No. 57 Blok Rijaya<br />
                                 Indonesia
                             </address>
                         </div>

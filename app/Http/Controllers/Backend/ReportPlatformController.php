@@ -6,6 +6,7 @@ use App\Exports\PlatformReportExport;
 use App\Http\Controllers\Controller;
 use App\Imports\PlatformReportImport;
 use App\Models\PlatformsModel;
+use App\Models\ReportGeneralModel;
 use App\Models\ReportPlatform;
 use App\Models\SessionKeyModel;
 use App\Models\UserBalanceModel;
@@ -35,25 +36,25 @@ class ReportPlatformController extends Controller {
         // * filter
         $reportDate = $request->get('reportDate');
 
-        $report = ReportPlatform::query()
-            ->leftJoin('platforms', 'report_platform.platform_id', '=', 'platforms.id')
-            ->groupByRaw("report_platform.users_id, MONTH(report_platform.reporting_period)")
-            ->orderBy('report_platform.reporting_period', 'desc');
+        $report = ReportGeneralModel::query()
+            ->leftJoin('platforms', 'report_general.platform_id', '=', 'platforms.id')
+            ->groupByRaw("report_general.users_id, report_general.platform_id, report_general.platform_imported, report_general.artist")
+            ->orderBy('report_general.reporting_period', 'desc');
 
         if (!empty($reportDate)) {
-            $report->whereRaw("DATE(report_platform.created_at) = '$reportDate'");
+            $report->whereRaw("DATE(report_general.created_at) = '$reportDate'");
         }
 
         $report = $report
             ->selectRaw("
-                            platforms.name as platform,
-                            report_platform.artist,
-                            sum(report_platform.revenue) as revenue,
-                            report_platform.reporting_period
+                            IF(report_general.platform_id = 0, report_general.platform_imported, platforms.name) as platform,
+                            report_general.artist,
+                            sum(report_general.revenue) as revenue,
+                            report_general.reporting_period
                         ");
 
         if ($userSession->tipe_user === 'user') {
-            $sqlUser = "(report_platform.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id)) ";
+            $sqlUser = "(report_general.users_id = $userSession->id or users_id in (select id from users where tipe_user =  'admin' and id = $userSession->id)) ";
             $sqlReleaseUser = "and (is_release = 1)";
             //Log::info($report->whereRaw($sqlUser)->toSql());
             $report = $report->whereRaw($sqlUser . $sqlReleaseUser);

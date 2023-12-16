@@ -21,7 +21,7 @@
                     <div class="card-title">
                         Report Platform
                     </div>
-                    <div class="row mb-xl-5">
+                    {{--  <div class="row mb-xl-5">
                         <div class="col">
                             <div class="form-group">
                                 <label for="#reportDate" class="form-label">Report Date</label>
@@ -29,8 +29,8 @@
                                     placeholder="Input Report Date">
                             </div>
                         </div>
-                    </div>
-                    <div class="row my-5">
+                    </div> --}}
+                    {{-- <div class="row my-5">
                         <div class="col-xs-12 col-md-12 col-lg-12">
                             <div class="float-start">
                                 @if ($userSession->tipe_user === 'admin')
@@ -49,7 +49,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="divider mb-3"></div>
                     <div class="row">
                         <div class="col-xs-12 col-md-12 col-lg-12">
@@ -77,18 +77,19 @@
     <script type="text/javascript" src="{{ asset('vendor/datatable/datatables.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#reporting_period").datepicker({
-                uiLibrary: 'bootstrap5',
-                format: 'yyyy-mm-dd'
-            })
+            @if (false)
+                $("#reporting_period").datepicker({
+                    uiLibrary: 'bootstrap5',
+                    format: 'yyyy-mm-dd'
+                })
 
-            // * modal component
-            $("#user").select2({
-                dropdownParent: $('#m_upload_platform'),
-                placeholder: 'Search User',
-                width: '100%',
-                theme: 'bootstrap-5',
-            })
+                $("#user").select2({
+                    dropdownParent: $('#m_upload_platform'),
+                    placeholder: 'Search User',
+                    width: '100%',
+                    theme: 'bootstrap-5',
+                })
+            @endif
         })
 
         let table = $('#datatable').DataTable({
@@ -146,9 +147,11 @@
             table.draw();
         });
 
-        $("#btn-upload").click((event) => {
-            event.preventDefault();
-            $('#m_upload_platform').modal('show');
-        });
+        @if (false)
+            $("#btn-upload").click((event) => {
+                event.preventDefault();
+                $('#m_upload_platform').modal('show');
+            });
+        @endif
     </script>
 @endpush
