@@ -209,9 +209,36 @@
                         <div class="d-flex flex-wrap align-items-center justify-content-center gap-5">
                             <img src="{{ asset('img/logo/Spotify_Logo_RGB_Green-300x90.png') }}" alt=""
                                 class="img-platform">
-                            <img src="{{ asset('img/logo/yt_logo_rgb_light-300x67.png') }}" alt=""
-                                class="img-platform">
-                            <img src="{{ asset('img/logo/wahanamusik-ico.jpg') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/anghami.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/AWA.png') }}" alt="" class="img-platform">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="d-flex flex-wrap align-items-center justify-content-center gap-5">
+                            <img src="{{ asset('img/logo/Boomplay.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/iHeart Radio.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/imusica.png') }}" alt="" class="img-platform">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="d-flex flex-wrap align-items-center justify-content-center gap-5">
+                            <img src="{{ asset('img/logo/Joox.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/kkbox.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/mixclound.png') }}" alt="" class="img-platform">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="d-flex flex-wrap align-items-center justify-content-center gap-5">
+                            <img src="{{ asset('img/logo/MusicTime.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/napster.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/nuuday.png') }}" alt="" class="img-platform">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="d-flex flex-wrap align-items-center justify-content-center gap-5">
+                            <img src="{{ asset('img/logo/Tidal.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/Yandex Music.png') }}" alt="" class="img-platform">
+                            <img src="{{ asset('img/logo/TME.png') }}" alt="" class="img-platform">
                         </div>
                     </div>
                 </div>

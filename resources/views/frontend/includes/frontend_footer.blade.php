@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-4 p-5">
                 <div class="d-flex flex-column">
-                    <img src="{{ asset('/img/logo_name.png') }}" alt="Logo" class="" />
+                    <img src="{{ asset('/img/logo_MM.png') }}" alt="Logo" class="" />
                     <p>
                         Kami selalu memberikan perlindungan dan pelayanan terbaik bagi klien kami
                     </p>
