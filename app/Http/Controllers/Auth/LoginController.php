@@ -21,7 +21,7 @@ Mohon untuk melengkapi data-data berikut.
 
 [ Nama label ]
 
-Lengkapi Data
+>> Lengkapi Data
 Nama Lengkap :
 Nama Alias :
 Email :
@@ -30,6 +30,8 @@ Nama Bank :
 Rekening Atas Nama :
 Nomor Rekening :
 Cabang Kota Bank :
+
+🌐 https://www.mastermusic.co.id
 EOD);
 
         $urlWa = "https://api.whatsapp.com/send/?phone=$noPonselAdmin&text=$formatRegist";

@@ -3,10 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="icon" href="{{ asset('img/favicon.ico') }}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('img/favicon-32x32.png') }}">
 
     <title>@yield('title') | {{ config('app.name') }}</title>
 
