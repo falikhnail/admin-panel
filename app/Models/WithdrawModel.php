@@ -25,7 +25,8 @@ class WithdrawModel extends BaseModel {
                             withdraws
                         WHERE
                             STATUS = 'approved'
-                            AND MONTH(request_date) = MONTH(CURRENT_DATE) - $month
+                            AND MONTH (request_date) = MONTH(DATE_SUB(NOW(), INTERVAL $month MONTH))
+                            AND YEAR (request_date) = YEAR(DATE_SUB(NOW(), INTERVAL $month MONTH))
                     ) as $alias";
         };
 

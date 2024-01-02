@@ -43,6 +43,8 @@ class ReportPlatformController extends Controller {
 
         if (!empty($reportDate)) {
             $report->whereRaw("DATE(report_general.created_at) = '$reportDate'");
+        } else {
+            $report->whereRaw("date(report_general.created_at) >= ADDDATE(LAST_DAY(SUBDATE(CURRENT_DATE, INTERVAL 1 MONTH)), 1)"); // FIRST_DAY OF CURRENT_DATE
         }
 
         $report = $report

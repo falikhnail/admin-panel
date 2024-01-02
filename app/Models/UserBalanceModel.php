@@ -45,7 +45,7 @@ class UserBalanceModel extends BaseModel {
                                     report_general
                                 WHERE
                                     users_id = '$userId'
-                                    AND MONTH (DATE_ADD( reporting_period, INTERVAL 2 MONTH )) = MONTH (now()) - $month
+                                    AND MONTH (DATE_ADD( reporting_period, INTERVAL 2 MONTH )) = MONTH(DATE_SUB(NOW(), INTERVAL $month MONTH))
                                     AND YEAR (DATE_ADD( reporting_period, INTERVAL 2 MONTH )) = YEAR(DATE_SUB(NOW(), INTERVAL $month MONTH))
                             ) $alias ON u1.id = $alias.users_id";
         };
@@ -56,14 +56,14 @@ class UserBalanceModel extends BaseModel {
                     u5.balance as last_2_month_balance,
                     u6.balance as last_3_month_balance,
                     u7.balance as last_4_month_balance,
-				    u8.balance as last_5_month_balance,
-				    u9.balance as last_6_month_balance,
-				    u10.balance as last_7_month_balance,
-				    u11.balance as last_8_month_balance,
-				    u12.balance as last_9_month_balance,
-				    u13.balance as last_10_month_balance,
-				    u14.balance as last_11_month_balance,
-				    u15.balance as last_12_month_balance,
+			        u8.balance as last_5_month_balance,
+			        u9.balance as last_6_month_balance,
+			        u10.balance as last_7_month_balance,
+			        u11.balance as last_8_month_balance,
+			        u12.balance as last_9_month_balance,
+			        u13.balance as last_10_month_balance,
+			        u14.balance as last_11_month_balance,
+			        u15.balance as last_12_month_balance,
 
                     -- percentage
                     IFNULL(CAST(((u4.balance - u5.balance) / u5.balance) * 100 AS DECIMAL(12, 2)), 0.0) as last_1_month_percentage,
