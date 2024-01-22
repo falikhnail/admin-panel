@@ -73,7 +73,7 @@ class ChannelReportImport implements ToArray {
 
                     ReportChannelModel::query()->insert($data);
 
-                    UserBalanceModel::addRevenue($this->userIdSelected, ((float)$values[3]) ?: null, 'import revenue channel');
+                    //UserBalanceModel::addRevenue($this->userIdSelected, ((float)$values[3]) ?: null, 'import revenue channel');
                 }
             }
         } catch (Throwable $e) {
